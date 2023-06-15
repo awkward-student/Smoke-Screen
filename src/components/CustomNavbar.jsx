@@ -19,7 +19,7 @@ const login = false;
 const CustomNavbar = () => {
   return (
     <div>
-      <Navbar color="dark" dark expand="md" fixed="top" className="px-3">
+      <Navbar color="dark" dark expand="md" fixed="top" className="px-0 py-0">
         <NavbarBrand href="/">
           <img
             className="m"
@@ -30,7 +30,6 @@ const CustomNavbar = () => {
               marginRight: 10,
             }}
           />
-          ACM NITT
         </NavbarBrand>
         <NavbarToggler />
         <Collapse navbar>
