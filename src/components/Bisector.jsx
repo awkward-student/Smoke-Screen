@@ -1,5 +1,6 @@
 import JoditEditor from "jodit-react";
 import React, { useRef } from "react";
+// import "../App.css";
 import {
   Button,
   Card,
@@ -13,7 +14,6 @@ import {
 } from "reactstrap";
 
 const Bisector = () => {
-    
   const config = {
     // buttons: null,
     autofocus: true,
@@ -30,9 +30,35 @@ const Bisector = () => {
     allowResizeX: false,
     color: "transparent",
   };
+  const switchQuestion = (event) => {
+    if ([event.target.id] == "q1") {
+      document.getElementById("que1").classList.remove("hide");
+      document.getElementById("que2").classList.add("hide");
+      document.getElementById("que3").classList.add("hide");
+      document.getElementById("sol1").classList.remove("hide");
+      document.getElementById("sol2").classList.add("hide");
+      document.getElementById("sol3").classList.add("hide");
+    }
+    if ([event.target.id] == "q2") {
+      document.getElementById("que2").classList.remove("hide");
+      document.getElementById("que1").classList.add("hide");
+      document.getElementById("que3").classList.add("hide");
+      document.getElementById("sol2").classList.remove("hide");
+      document.getElementById("sol1").classList.add("hide");
+      document.getElementById("sol3").classList.add("hide");
+    }
+    if ([event.target.id] == "q3") {
+      document.getElementById("que3").classList.remove("hide");
+      document.getElementById("que2").classList.add("hide");
+      document.getElementById("que1").classList.add("hide");
+      document.getElementById("sol3").classList.remove("hide");
+      document.getElementById("sol2").classList.add("hide");
+      document.getElementById("sol1").classList.add("hide");
+    }
+  };
   const editor = useRef(null);
   return (
-    <div className="codeBook mt-0 pt-1">
+    <div className="codeBook mt-0 pt-1 mb-2">
       <Card className="shadow-sm mx-2 mt-5">
         <CardHeader>Code Book</CardHeader>
         <CardBody>
@@ -45,24 +71,30 @@ const Bisector = () => {
                 <CardGroup className="questionToggler my-2">
                   <Card className="mx-1 my-1" style={{ border: "none" }}>
                     <Button
+                      id="q1"
                       className="bg-dark"
                       style={{ backgroundColor: "transparent" }}
+                      onClick={switchQuestion}
                     >
                       PROBLEM - 1
                     </Button>
                   </Card>
                   <Card className="mx-1 my-1" style={{ border: "none" }}>
                     <Button
+                      id="q2"
                       className="bg-dark"
                       style={{ backgroundColor: "transparent" }}
+                      onClick={switchQuestion}
                     >
                       STATEMENT - 2
                     </Button>
                   </Card>
                   <Card className="mx-1 my-1" style={{ border: "none" }}>
                     <Button
+                      id="q3"
                       className="bg-dark"
                       style={{ backgroundColor: "transparent" }}
+                      onClick={switchQuestion}
                     >
                       QUESTION - 3
                     </Button>
@@ -127,15 +159,49 @@ const Bisector = () => {
                 style={{ width: "50%", display: "flex" }}
               >
                 <FormGroup className="solution" id="sol1">
-                  <Label>Solution 1</Label>
+                  <Label>Solution 1: </Label>
+                  <Input
+                    className="my-1 py-0"
+                    style={{ width: "50%", display: "inline-block" }}
+                    type="select"
+                    id="lang1"
+                    placeholder="Language"
+                    // className="rounded-0"
+                    name="lang1"
+                    defaultValue={0}
+                  >
+                    <option disabled value={0}>
+                      Language
+                    </option>
+                    <option value={"java"}>Java</option>
+                    <option value={"c++"}>C++</option>
+                    <option value={"python"}>Python</option>
+                  </Input>
                   <JoditEditor
-                    className="joditStyle"
                     ref={editor}
                     config={config}
+                    className="joditStyle"
                   />
                 </FormGroup>
                 <FormGroup className="solution hide" id="sol2">
                   <Label>Solution 2</Label>
+                  <Input
+                    className="my-1 py-0"
+                    style={{ width: "50%", display: "inline-block" }}
+                    type="select"
+                    id="lang2"
+                    placeholder="Language"
+                    // className="rounded-0"
+                    name="lang2"
+                    defaultValue={0}
+                  >
+                    <option disabled value={0}>
+                      Language
+                    </option>
+                    <option value={"java"}>Java</option>
+                    <option value={"c++"}>C++</option>
+                    <option value={"python"}>Python</option>
+                  </Input>
                   <JoditEditor
                     className="joditStyle"
                     ref={editor}
@@ -144,6 +210,23 @@ const Bisector = () => {
                 </FormGroup>
                 <FormGroup className="solution hide" id="sol3">
                   <Label>Solution 3</Label>
+                  <Input
+                    className="my-1 py-0"
+                    style={{ width: "50%", display: "inline-block" }}
+                    type="select"
+                    id="lang3"
+                    placeholder="Language"
+                    // className="rounded-0"
+                    name="lang3"
+                    defaultValue={0}
+                  >
+                    <option disabled value={0}>
+                      Language
+                    </option>
+                    <option value={"java"}>Java</option>
+                    <option value={"c++"}>C++</option>
+                    <option value={"python"}>Python</option>
+                  </Input>
                   <JoditEditor
                     className="joditStyle"
                     ref={editor}
@@ -158,7 +241,8 @@ const Bisector = () => {
     </div>
   );
   {
-    document.getElementsByClassName("jodit-wysiwyg").style.color="transparent";
+    document.getElementsByClassName("jodit-wysiwyg").style.color =
+      "transparent";
   }
 };
 
