@@ -1,10 +1,10 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import CustomNavbar from './components/CustomNavbar';
+import Dashboard from './pages/dashboard';
 
 function App() {
   return (
-    <CustomNavbar />
+    <Dashboard />
   );
 }
 

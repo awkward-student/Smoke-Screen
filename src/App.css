@@ -36,3 +36,36 @@
     transform: rotate(360deg);
   }
 }
+
+.jodit-toolbar-editor-collection {
+  display: none;
+  background-color: transparent;
+}
+
+.jodit-status-bar {
+  display: none;
+}
+
+.hide {
+  display: none;
+}
+
+.joditStyle {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  color: transparent;
+}
+
+.solution{
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  color: transparent;
+}
