@@ -17,42 +17,64 @@ import {
 const Login = () => {
   return (
     <Base>
-      <div className="mt-5">
-        <Row className="mt-4">
-          <Col sm={{ size: 7, offset: 4 }}>
-            <Card
-              className="mt-4 text-center"
-              style={{ maxWidth: "50%", maxHeight: "100%" }}
-            >
-              <CardHeader>
-                User Login
-              </CardHeader>
-              <CardBody className="mt-2" style={{ minHeight: "100px", maxHeight:"200px"}}>
-                <Form className="">
-                  <FormGroup>
-                    {/* <Label for="email">Username</Label> */}
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="user@name.here"
-                    ></Input>
-                  </FormGroup>
-                  <FormGroup>
-                    {/* <Label for="password">Password</Label> */}
-                    <Input
-                      id="password"
-                      type="password"
-                      placeholder="***********"
-                    ></Input>
-                  </FormGroup>
-                  <Button className="primary">Login</Button>
-                </Form>
-              </CardBody>
+      <div
+        className=""
+        style={{
+          minHeight: "80vh",
+          minWidth: "90vw",
+          display: "flex",
+          alignSelf: "center",
+          alignContent: "center",
+          alignItems: "center",
+          justifyContent: "center",
+          justifyItems: "center",
+        }}
+      >
+        <Card
+          className="mt-4 text-center"
+          style={{
+            minHeight: "32vh",
+            minWidth: "25vw",
+            display: "flex",
+            alignSelf: "center",
+            alignContent: "center",
+            alignItems: "center",
+            justifyContent: "center",
+            justifyItems: "center",
+          }}
+        >
+          <CardHeader style={{ minWidth: "25vw" }}>USER LOGIN</CardHeader>
+          <CardBody
+            className="mt-2"
+            style={{ minHeight: "100px", maxHeight: "200px", minWidth: "25vw" }}
+          >
+            <Form className="">
+              <FormGroup>
+                {/* <Label for="email">Username</Label> */}
+                <Input
+                  style={{ outline: "none" }}
+                  id="email"
+                  type="email"
+                  placeholder="user@name.here"
+                ></Input>
+              </FormGroup>
+              <FormGroup>
+                {/* <Label for="password">Password</Label> */}
+                <Input
+                  style={{ outline: "none" }}
+                  id="password"
+                  type="password"
+                  placeholder="***********"
+                ></Input>
+              </FormGroup>
+              <Button color="primary" className="primary">
+                Login
+              </Button>
+            </Form>
+          </CardBody>
 
-              <CardFooter></CardFooter>
-            </Card>
-          </Col>
-        </Row>
+          <CardFooter style={{ minWidth: "25vw" }}></CardFooter>
+        </Card>
       </div>
     </Base>
   );
