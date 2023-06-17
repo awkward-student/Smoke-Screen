@@ -19,10 +19,10 @@ const login = false;
 const CustomNavbar = () => {
   return (
     <div>
-      <Navbar color="dark" dark expand="md" fixed="top" className="px-0 py-0">
+      <Navbar color="dark" dark expand="md" fixed="top" className="px-0 py-2 mb-4">
         <NavbarBrand href="/">
           <img
-            className="m"
+            className="md"
             src={require("../media/nitt-logo.png")}
             style={{
               height: 36,
@@ -30,6 +30,7 @@ const CustomNavbar = () => {
               marginRight: 10,
             }}
           />
+          
         </NavbarBrand>
         <NavbarToggler />
         <Collapse navbar>
