@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Base from "../components/Base";
 import {
   Button,
@@ -6,15 +6,48 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  Col,
   Container,
   Form,
   FormGroup,
   Input,
-  Row,
 } from "reactstrap";
+import { RegisterUser } from "../services/user-service";
+import { toast } from "react-toastify";
 
 const Register = () => {
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    branch: "0",
+    sem: "0",
+  });
+
+  //handle change
+  const handleChange = (e, prop) => {
+    setUserData({ ...userData, [prop]: e.target.value });
+  };
+
+  //submit form
+  const submitForm = (e) => {
+    e.preventDefault();
+    RegisterUser(userData)
+      .then((res) => {
+        toast.success("Successfully Registered");
+        setUserData({
+          name: "",
+          email: "",
+          password: "",
+          branch: "0",
+          sem: "0",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Invalid form data");
+      });
+  };
+
   return (
     <Base>
       <Container
@@ -43,22 +76,37 @@ const Register = () => {
             justifyItems: "center",
           }}
         >
+          {/* {JSON.stringify(userData)} */}
           <CardHeader style={{ minWidth: "30vw" }}>
             USER REGISTRATION
           </CardHeader>
           <CardBody style={{ minWidth: "30vw" }} className="mt-2">
-            <Form>
+            <Form onSubmit={submitForm}>
               <FormGroup>
-                <Input id="name" type="text" placeholder="Your Name"></Input>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="Your Name"
+                  onChange={(e) => handleChange(e, "name")}
+                  value={userData.name}
+                ></Input>
               </FormGroup>
               <FormGroup>
-                <Input id="email" type="email" placeholder="Your Email"></Input>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="Your Email"
+                  onChange={(e) => handleChange(e, "email")}
+                  value={userData.email}
+                ></Input>
               </FormGroup>
               <FormGroup>
                 <Input
                   id="password"
                   type="password"
                   placeholder="Create Password"
+                  onChange={(e) => handleChange(e, "password")}
+                  value={userData.password}
                 ></Input>
               </FormGroup>
               <FormGroup>
@@ -67,6 +115,8 @@ const Register = () => {
                   type="select"
                   placeholder="Select Branch"
                   defaultValue={0}
+                  onChange={(e) => handleChange(e, "branch")}
+                  value={userData.branch}
                 >
                   <option disabled value={0}>
                     Select Branch
@@ -81,9 +131,11 @@ const Register = () => {
                   type="select"
                   placeholder="Select Sem"
                   defaultValue={0}
+                  onChange={(e) => handleChange(e, "sem")}
+                  value={userData.sem}
                 >
                   <option disabled value={0}>
-                    Select Sem
+                    Select Semester
                   </option>
                   <option value={"1"}>1</option>
                   <option value={"2"}>2</option>
