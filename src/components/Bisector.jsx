@@ -27,24 +27,21 @@ const Bisector = () => {
           if (event.code == "F12") {
             return false;
           } else if (event.ctrlKey && event.shiftKey && event.code == "KeyI") {
-            return false; //Prevent from ctrl+shift+i
+            return false;
           } else if (event.ctrlKey && event.code == "KeyI") {
-            return false; //Prevent from ctrl+shift+i
+            return false;
           }
         })}
       </script>
     </head>;
   }
   useEffect(() => {
-    // Disable right-click
     document.addEventListener("contextmenu", (e) => e.preventDefault());
-
     function ctrlShiftKey(e, code) {
       return e.ctrlKey && e.shiftKey && e.code === code.charCodeAt(0);
     }
 
     document.onkeydown = (e) => {
-      // Disable F12, Ctrl + Shift + I, Ctrl + Shift + J, Ctrl + U
       if (
         e.code === 123 ||
         ctrlShiftKey(e, "I") ||
@@ -54,25 +51,17 @@ const Bisector = () => {
       )
         return false;
     };
-    // define a custom handler function
-    // for the contextmenu event
     const handleContextMenu = (e) => {
-      // prevent the right-click menu from appearing
       e.preventDefault();
     };
 
-    // attach the event listener to
-    // the document object
     document.addEventListener("contextmenu", handleContextMenu);
-
-    // clean up the event listener when
-    // the component unmounts
     return () => {
       document.removeEventListener("contextmenu", handleContextMenu);
     };
   }, []);
+
   const config = {
-    // buttons: null,
     autofocus: true,
     enter: "BR",
     toolbar: false,
@@ -87,6 +76,7 @@ const Bisector = () => {
     allowResizeX: false,
     color: "transparent",
   };
+
   const switchQuestion = (event) => {
     if ([event.target.id] == "q1") {
       document.getElementById("que1").classList.remove("hide");
@@ -113,7 +103,9 @@ const Bisector = () => {
       document.getElementById("sol1").classList.add("hide");
     }
   };
+
   const editor = useRef(null);
+
   return (
     <div className="codeBook mt-0 pt-1">
       <Navbar
@@ -135,7 +127,6 @@ const Bisector = () => {
         </Button>
       </Navbar>
       <Card className="codeBookCard" style={{ border: "none" }}>
-        {/* shadow-sm <CardHeader>Code Book</CardHeader> */}
         <CardBody className="formCard mt-0 mb-4">
           <form className="formX" action="">
             <CardGroup className="codeCard mt-4 mb-4">
@@ -148,15 +139,6 @@ const Bisector = () => {
                 }}
               >
                 <div className="buttonsConfig">
-                  {/* <Nav
-                    tabs
-                    className="questionToggler my-2"
-                    style={{ alignItems: "s" }}
-                  >
-                    <NavItem></NavItem>
-                    <NavItem></NavItem>
-                    <NavItem></NavItem>
-                  </Nav> */}
                   <CardGroup
                     className="questionToggler"
                     style={{ minHeight: "80px" }}
@@ -168,8 +150,6 @@ const Bisector = () => {
                           backgroundColor: "#1a0080",
                         }}
                         id="q1"
-                        // className="bg-dark"
-                        // style={{ backgroundColor: "transparent" }}
                         onClick={switchQuestion}
                       >
                         QUESTION - 1
@@ -182,8 +162,6 @@ const Bisector = () => {
                           backgroundColor: "#1a0080",
                         }}
                         id="q2"
-                        // className="bg-dark"
-                        // style={{ backgroundColor: "transparent" }}
                         onClick={switchQuestion}
                       >
                         QUESTION - 2
@@ -196,8 +174,6 @@ const Bisector = () => {
                           backgroundColor: "#1a0080",
                         }}
                         id="q3"
-                        // className="bg-dark"
-                        // style={{ backgroundColor: "transparent" }}
                         onClick={switchQuestion}
                       >
                         QUESTION - 3
@@ -277,20 +253,17 @@ const Bisector = () => {
                 <FormGroup className="mt-2 solution" id="sol1">
                   <span className="langChoose">
                     <Input
-                      // color="secondary"
                       className="my-2 py-0"
                       style={{
                         width: "20%",
                         display: "inline-block",
                         textAlign: "center",
                         outline: "none",
-                        // backgroundColor: "#1a0080",
                         border: "none",
                       }}
                       type="select"
                       id="lang1"
                       placeholder="Language"
-                      // className="rounded-0"
                       name="lang1"
                       defaultValue={0}
                     >
@@ -302,11 +275,6 @@ const Bisector = () => {
                       <option value={"python"}>Python</option>
                     </Input>
                   </span>
-                  {/* <JoditEditor
-                    ref={editor}
-                    config={config}
-                    className="joditStyle"
-                  /> */}
                   <Card className="txtarea">
                     <CustomEditor id="ta1" />
                   </Card>
@@ -320,13 +288,11 @@ const Bisector = () => {
                         display: "inline-block",
                         textAlign: "center",
                         outline: "none",
-                        // backgroundColor: "#1a0080",
                         border: "none",
                       }}
                       type="select"
                       id="lang2"
                       placeholder="Language"
-                      // className="rounded-0"
                       name="lang2"
                       defaultValue={0}
                     >
@@ -338,11 +304,6 @@ const Bisector = () => {
                       <option value={"python"}>Python</option>
                     </Input>
                   </span>
-                  {/* <JoditEditor
-                    className="joditStyle"
-                    ref={editor}
-                    config={config}
-                  /> */}
                   <Card className="txtarea">
                     <CustomEditor id="ta2" />
                   </Card>
@@ -356,13 +317,11 @@ const Bisector = () => {
                         display: "inline-block",
                         textAlign: "center",
                         outline: "none",
-                        // backgroundColor: "#1a0080",
                         border: "none",
                       }}
                       type="select"
                       id="lang3"
                       placeholder="Language"
-                      // className="rounded-0"
                       name="lang3"
                       defaultValue={0}
                     >
@@ -374,11 +333,6 @@ const Bisector = () => {
                       <option value={"python"}>Python</option>
                     </Input>
                   </span>
-                  {/* <JoditEditor
-                    className="joditStyle"
-                    ref={editor}
-                    config={config}
-                  /> */}
                   <Card className="txtarea">
                     <CustomEditor id="ta3" />
                   </Card>
@@ -391,7 +345,6 @@ const Bisector = () => {
                 style={{
                   marginTop: "-30px",
                   minHeight: "30px",
-                  // backgroundColor: "#1a0080",
                 }}
               >
                 SUBMIT ASSESMENT

@@ -19,7 +19,13 @@ const login = false;
 const CustomNavbar = () => {
   return (
     <div>
-      <Navbar color="dark" dark expand="md" fixed="top" className="px-0 py-2 mb-4">
+      <Navbar
+        color="dark"
+        dark
+        expand="md"
+        fixed="top"
+        className="px-0 py-2 mb-4"
+      >
         <NavbarBrand href="/">
           <img
             className="md"
@@ -30,7 +36,9 @@ const CustomNavbar = () => {
               marginRight: 10,
             }}
           />
-          
+          <span className="navHead">
+            National Institute of Technology, Tiruchirappalli
+          </span>
         </NavbarBrand>
         <NavbarToggler />
         <Collapse navbar>
@@ -39,34 +47,18 @@ const CustomNavbar = () => {
               <NavLink></NavLink>
             </NavItem>
             <NavItem>
-              <NavLink>
-              </NavLink>
+              <NavLink></NavLink>
             </NavItem>
-            {/* <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>Reset</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown> */}
           </Nav>
           <Nav navbar>
             {login && (
               <>
                 <NavItem>
-                  <NavLink>
-                    Profile
-                  </NavLink>
+                  <NavLink>Profile</NavLink>
                 </NavItem>
 
                 <NavItem>
-                  <NavLink>
-                    {/* {user.email} */}
-                  </NavLink>
+                  <NavLink>{/* {user.email} */}</NavLink>
                 </NavItem>
 
                 <NavItem>
@@ -77,19 +69,14 @@ const CustomNavbar = () => {
             {!login && (
               <>
                 <NavItem>
-                  <NavLink>
-                    Login
-                  </NavLink>
+                  <NavLink>Login</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink>
-                    Signup
-                  </NavLink>
+                  <NavLink>Signup</NavLink>
                 </NavItem>
               </>
             )}
           </Nav>
-          {/* <NavbarText>Simple Text</NavbarText> */}
         </Collapse>
       </Navbar>
     </div>
