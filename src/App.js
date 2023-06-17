@@ -1,5 +1,6 @@
 // import logo from './logo.svg';
 import "./App.css";
+import AdminDashboard from "./pages/admin/adm-dashboard";
 import Dashboard from "./pages/dashboard";
 import Login from "./pages/login";
 import Register from "./pages/register";
@@ -11,10 +12,11 @@ function App() {
     <BrowserRouter>
       <ToastContainer position="bottom-center" />
       <Routes>
-        <Route path="/user/dashboard" element={<Dashboard/>} />
+        <Route path="/user/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
         {/* <Route path="/user" element={<PrivateRoutes />}>
           <Route path="dashboard" element={<Dashboard />} />
