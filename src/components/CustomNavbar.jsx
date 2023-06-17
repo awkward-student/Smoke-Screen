@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink as ReactLink } from "react-router-dom";
 import {
   Collapse,
   Navbar,
@@ -69,10 +70,10 @@ const CustomNavbar = () => {
             {!login && (
               <>
                 <NavItem>
-                  <NavLink>Login</NavLink>
+                  <NavLink tag={ReactLink} to="/login">Login</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink>Signup</NavLink>
+                  <NavLink tag={ReactLink} to="/register">Register</NavLink>
                 </NavItem>
               </>
             )}
