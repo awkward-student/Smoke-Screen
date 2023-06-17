@@ -1,14 +1,37 @@
 // import logo from './logo.svg';
 import "./App.css";
 import Dashboard from "./pages/dashboard";
-import $ from 'jquery';
+import Login from "./pages/login";
+import Register from "./pages/register";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <>
-      
-      <Dashboard />
-    </>
+    <BrowserRouter>
+      <ToastContainer position="bottom-center" />
+      <Routes>
+        <Route path="/user/dashboard" element={<Dashboard/>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* <Route path="/user" element={<PrivateRoutes />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="profile-info/:userId" element={<ProfileInfo />} />
+          <Route path="update-blog/:blogId" element={<UpdateBlog />} />
+        </Route>
+
+        <Route path="/admin" element={<PrivateRoutes />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="profile-info/:userId" element={<ProfileInfo />} />
+          <Route path="update-blog/:blogId" element={<UpdateBlog />} />
+        </Route> */}
+      </Routes>
+      {/* <Dashboard /> */}
+      {/* <Login/> */}
+      {/* <Register/> */}
+    </BrowserRouter>
   );
 }
 
