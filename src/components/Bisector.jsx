@@ -114,6 +114,8 @@ const Bisector = () => {
     maxHeight: 450,
     allowResizeY: false,
     allowResizeX: false,
+    readOnly: true,
+    disabled: true,
   };
 
   const switchQuestion = (event) => {
@@ -196,14 +198,16 @@ const Bisector = () => {
   const submitForm = (e) => {
     e.preventDefault();
     const finalContent = getSolutionContent();
+
     SubmitSolution(finalContent, getCurrentUser().id)
       .then((res) => {
+        stopTimer();
         toast.success("Assessment Submited Successfully");
         doLogout(() => {
           toast.warning("Logged you out");
           removeSolution(() => {
             toast.info("Redirected");
-            navigate("/");
+            navigate("/login");
           });
         });
       })
@@ -234,9 +238,39 @@ const Bisector = () => {
     };
   }, []);
 
+  const addMinutes = (date, minutes) => {
+    return new Date(date + minutes * 60000);
+  };
+
+  var x;
+
+  const startTimer = () => {
+    const countDownDate = addMinutes(new Date().getTime(), 39);
+    x = setInterval(() => {
+      let now = new Date().getTime();
+      let distance = countDownDate - now;
+      let mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      let secs = Math.floor((distance % (1000 * 60)) / 1000);
+      document.getElementById("timer").innerHTML = mins + " : " + secs;
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("timer").innerHTML = "EXPIRED";
+      }
+    }, 1000);
+  };
+
+  const stopTimer = () => {
+    clearInterval(x);
+    document.exitFullscreen();
+  };
+
   const viewTest = () => {
     document.getElementById("notice").classList.add("noticeHidden");
     document.documentElement.requestFullscreen();
+    //
+    //
+    //
+    startTimer();
   };
 
   const revealCode = () => {
@@ -284,7 +318,13 @@ const Bisector = () => {
         }}
       >
         Hello, {isLoggedIn() && getCurrentUser().name}
-        <Button onClick={revealCode} color="success" className="reveal">
+        <span id="timer"></span>
+        <Button
+          onClick={revealCode}
+          disabled={content.flashCount >= 3}
+          color="success"
+          className="reveal"
+        >
           Reveal Code
         </Button>
       </Navbar>
@@ -709,15 +749,31 @@ const Bisector = () => {
         <CardGroup>
           <Card>
             <CardHeader>Solution 1</CardHeader>
-            <JoditEditor ref={editor} config={config} className="joditStyle" />
+            <JoditEditor
+              ref={editor}
+              config={config}
+              className="joditStyle"
+              value={content.solutionQ1}
+            />
           </Card>
           <Card>
             <CardHeader>Solution 2</CardHeader>
-            <JoditEditor ref={editor} config={config} className="joditStyle" />
+            <JoditEditor
+              style={{ minWidth: "30vw" }}
+              ref={editor}
+              config={config}
+              className="joditStyle"
+              value={content.solutionQ2}
+            />
           </Card>
           <Card>
             <CardHeader>Solution 3</CardHeader>
-            <JoditEditor ref={editor} config={config} className="joditStyle" />
+            <JoditEditor
+              ref={editor}
+              config={config}
+              className="joditStyle"
+              value={content.solutionQ3}
+            />
           </Card>
         </CardGroup>
       </div>

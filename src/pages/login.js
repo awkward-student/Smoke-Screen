@@ -13,9 +13,15 @@ import {
 import { toast } from "react-toastify";
 import { LoginUser } from "../services/user-service";
 import { doLogin, getCurrentUserProfile } from "../auth/auth";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Login = () => {
+
+  // useEffect(()=>{
+  //   window.location.reload();
+  // },[])
+
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({
