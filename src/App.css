@@ -51,7 +51,7 @@
 }
 
 .joditStyle {
-  background-color: "beige",
+  background-color: "beige";
 }
 
 .solution {
@@ -132,7 +132,7 @@
   margin-bottom: 10px;
 }
 
-.buttonsConfig{
+.buttonsConfig {
   align-items: center;
   align-content: center;
   align-self: center;
@@ -208,7 +208,7 @@
   margin-top: 10px;
 }
 
-.langChoose{
+.langChoose {
   border: 1px solid black;
   padding: 5px;
   margin-left: 3px;
@@ -217,22 +217,64 @@
   border-radius: 5px;
 }
 
-.navHead{
+.navHead {
   padding-left: 5px;
   color: #c1c1c1;
   font-size: 0.8em;
 }
 
-.userInfo{
+.userInfo {
   display: block;
   min-width: 90vw;
   min-height: 3vh;
 }
 
 .infoCard {
-  display: grid
+  display: grid;
 }
 
-.info{
+.info {
   display: inline-flex;
+}
+
+.notice {
+  top: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  min-width: 100vw;
+  min-height: 100vh;
+  z-index: 100;
+  background-color: #282c34;
+}
+
+.noticeHidden {
+  display: none;
+  z-index: -100;
+}
+
+.noticeButton{
+  height: 5vh;
+}
+
+.revealer {
+  top: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  min-width: 100vw;
+  min-height: 100vh;
+  z-index: 99;
+  background-color: #282c34;
+}
+
+.revealHidden {
+  display: none;
+  z-index: -99;
 }

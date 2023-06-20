@@ -1,4 +1,6 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import { NavLink as ReactLink } from "react-router-dom";
 import {
   Collapse,
@@ -8,16 +10,18 @@ import {
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText,
 } from "reactstrap";
-
-const login = false;
+import { getCurrentUser, isLoggedIn } from "../auth/auth";
 
 const CustomNavbar = () => {
+  const [login, setLogin] = useState(false);
+  const [user, setUser] = useState(undefined);
+
+  useEffect(() => {
+    setLogin(isLoggedIn());
+    setUser(getCurrentUser());
+  }, [login]);
+
   return (
     <div>
       <Navbar
@@ -55,25 +59,21 @@ const CustomNavbar = () => {
             {login && (
               <>
                 <NavItem>
-                  <NavLink>Profile</NavLink>
-                </NavItem>
-
-                <NavItem>
-                  <NavLink>{/* {user.email} */}</NavLink>
-                </NavItem>
-
-                <NavItem>
-                  <NavLink>Logout</NavLink>
+                  <NavLink>{user.email}</NavLink>
                 </NavItem>
               </>
             )}
             {!login && (
               <>
                 <NavItem>
-                  <NavLink tag={ReactLink} to="/login">Login</NavLink>
+                  <NavLink tag={ReactLink} to="/login">
+                    Login
+                  </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={ReactLink} to="/register">Register</NavLink>
+                  <NavLink tag={ReactLink} to="/register">
+                    Register
+                  </NavLink>
                 </NavItem>
               </>
             )}

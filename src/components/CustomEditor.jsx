@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Button } from "reactstrap";
 
@@ -25,15 +25,13 @@ const CustomEditor = () => {
   return (
     <>
       <Editor
-        selector="textareaEdit"
         apiKey="bgx3j6j885xiq1toxfp8jbpr389dyji48oc6mejvg4s557un"
         onInit={(evt, editor) => (editorRef.current = editor)}
-        initialValue=""
+        onEditorChange={""}
         init={{
           browser_spellcheck: false,
           height: 400,
           width: 650,
-
           setup: (editor) => {
             editor.on("keydown", (e) => {
               if (e.code == "F12") {

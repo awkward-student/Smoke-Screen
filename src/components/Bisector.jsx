@@ -1,5 +1,6 @@
 import JoditEditor from "jodit-react";
 import React, { useRef, useEffect } from "react";
+import { Editor } from "@tinymce/tinymce-react";
 // import "../App.css";
 import {
   Button,
@@ -17,6 +18,18 @@ import {
 } from "reactstrap";
 import CustomEditor from "./CustomEditor";
 import $ from "jquery";
+import { useState } from "react";
+import {
+  doLogout,
+  getCurrentUser,
+  getSolutionContent,
+  isLoggedIn,
+  removeSolution,
+  saveSolution,
+} from "../auth/auth";
+import { SubmitSolution } from "../services/solution-service";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Bisector = () => {
   {
@@ -25,6 +38,11 @@ const Bisector = () => {
       <script>
         {$(window).on("keydown", function (event) {
           if (event.code == "F12") {
+            return false;
+          } else if (event.code == "F11") {
+            return false;
+          } else if (event.code == "Escape") {
+            console.log("hello");
             return false;
           } else if (event.ctrlKey && event.shiftKey && event.code == "KeyI") {
             return false;
@@ -40,6 +58,28 @@ const Bisector = () => {
     function ctrlShiftKey(e, code) {
       return e.ctrlKey && e.shiftKey && e.code === code.charCodeAt(0);
     }
+
+    document.addEventListener("fullscreenchange", (e) => {
+      if (document.fullscreenElement == null) {
+        SubmitSolution(getSolutionContent(), getCurrentUser().id)
+          .then((res) => {
+            toast.success("Assessment Submited Automatically");
+            doLogout(() => {
+              toast.warning("Logged you out");
+              removeSolution(() => {
+                toast.info("Redirected");
+                navigate("/");
+                return;
+              });
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+            toast.error(error);
+          });
+        document.removeEventListener("fullscreenchange", () => {});
+      }
+    });
 
     document.onkeydown = (e) => {
       if (
@@ -74,7 +114,6 @@ const Bisector = () => {
     maxHeight: 450,
     allowResizeY: false,
     allowResizeX: false,
-    color: "transparent",
   };
 
   const switchQuestion = (event) => {
@@ -104,7 +143,130 @@ const Bisector = () => {
     }
   };
 
+  const navigate = useNavigate();
+
   const editor = useRef(null);
+
+  const fieldChanged = (e) => {
+    setLanguage({ ...language, [e.target.id]: e.target.value });
+  };
+
+  const [solOne, setSolOne] = useState(null);
+  const [solTwo, setSolTwo] = useState(null);
+  const [solThree, setSolThree] = useState(null);
+  const [language, setLanguage] = useState({
+    langSolOne: "",
+    langSolTwo: "",
+    langSolThree: "",
+  });
+
+  const [content, setContent] = useState({
+    langQ1: "",
+    langQ2: "",
+    langQ3: "",
+    solutionQ1: "",
+    solutionQ2: "",
+    solutionQ3: "",
+    timeTaken: "",
+    flashCount: "0",
+  });
+
+  useEffect(() => {
+    setContent({ ...content, solutionQ1: solOne });
+  }, [solOne]);
+  useEffect(() => {
+    setContent({ ...content, solutionQ2: solTwo });
+  }, [solTwo]);
+  useEffect(() => {
+    setContent({ ...content, solutionQ3: solThree });
+  }, [solThree]);
+  useEffect(() => {
+    setContent({ ...content, langQ1: language.langSolOne });
+  }, [language.langSolOne]);
+  useEffect(() => {
+    setContent({ ...content, langQ2: language.langSolTwo });
+  }, [language.langSolTwo]);
+  useEffect(() => {
+    setContent({ ...content, langQ3: language.langSolThree });
+  }, [language.langSolThree]);
+  useEffect(() => {
+    saveSolution(content);
+  }, [content]);
+
+  const submitForm = (e) => {
+    e.preventDefault();
+    const finalContent = getSolutionContent();
+    SubmitSolution(finalContent, getCurrentUser().id)
+      .then((res) => {
+        toast.success("Assessment Submited Successfully");
+        doLogout(() => {
+          toast.warning("Logged you out");
+          removeSolution(() => {
+            toast.info("Redirected");
+            navigate("/");
+          });
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error);
+      });
+  };
+
+  const editorRef = useRef(null);
+  // const log = () => {
+  //   if (editorRef.current) {
+  //     console.log(editorRef.current.getContent());
+  //   }
+  // };
+
+  const colour =
+    "body { background-color:black ;font-family:Helvetica,Arial,sans-serif; font-size:14px; color:transparent; user-select:none;-webkit-user-select:none;-webkit-touch-callout: none;-khtml-user-select: none; -moz-user-select: none;-ms-user-select: none;}";
+  const revealColour =
+    "body { background-color:black ;font-family:Helvetica,Arial,sans-serif; font-size:14px; color:yellow; user-select:none;-webkit-user-select:none;-webkit-touch-callout: none;-khtml-user-select: none; -moz-user-select: none;-ms-user-select: none;}";
+  useEffect(() => {
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+    };
+
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+    };
+  }, []);
+
+  const viewTest = () => {
+    document.getElementById("notice").classList.add("noticeHidden");
+    document.documentElement.requestFullscreen();
+  };
+
+  const revealCode = () => {
+    // console.log(content.flashCount)
+    switch (content.flashCount) {
+      case "0":
+        setContent({ ...content, flashCount: "1" });
+        document.getElementById("revealer").classList.remove("revealHidden");
+        setTimeout(() => {
+          document.getElementById("revealer").classList.add("revealHidden");
+        }, 10000);
+        break;
+      case "1":
+        setContent({ ...content, flashCount: "2" });
+        document.getElementById("revealer").classList.remove("revealHidden");
+        setTimeout(() => {
+          document.getElementById("revealer").classList.add("revealHidden");
+        }, 7000);
+        break;
+      case "2":
+        setContent({ ...content, flashCount: "3" });
+        document.getElementById("revealer").classList.remove("revealHidden");
+        setTimeout(() => {
+          document.getElementById("revealer").classList.add("revealHidden");
+        }, 5000);
+        break;
+      default:
+        return;
+    }
+  };
 
   return (
     <div className="codeBook mt-0 pt-1">
@@ -121,14 +283,14 @@ const Bisector = () => {
           color: "#fff",
         }}
       >
-        Hello
-        <Button color="success" className="reveal">
+        Hello, {isLoggedIn() && getCurrentUser().name}
+        <Button onClick={revealCode} color="success" className="reveal">
           Reveal Code
         </Button>
       </Navbar>
       <Card className="codeBookCard" style={{ border: "none" }}>
         <CardBody className="formCard mt-0 mb-4">
-          <form className="formX" action="">
+          <form className="formX" onSubmit={submitForm}>
             <CardGroup className="codeCard mt-4 mb-4">
               <Card
                 className="bx questionBox px-2"
@@ -262,10 +424,11 @@ const Bisector = () => {
                         border: "none",
                       }}
                       type="select"
-                      id="lang1"
+                      id="langSolOne"
                       placeholder="Language"
-                      name="lang1"
+                      name="langSolOne"
                       defaultValue={0}
+                      onChange={fieldChanged}
                     >
                       <option disabled value={0}>
                         --language--
@@ -276,7 +439,67 @@ const Bisector = () => {
                     </Input>
                   </span>
                   <Card className="txtarea">
-                    <CustomEditor id="ta1" />
+                    {/* <CustomEditor
+                      selector="textareaEdit"
+                      id="solOne"
+                      name="solOne"
+                    /> */}
+
+                    <Editor
+                      apiKey="bgx3j6j885xiq1toxfp8jbpr389dyji48oc6mejvg4s557un"
+                      onInit={(evt, editor) => (editorRef.current = editor)}
+                      onEditorChange={setSolOne}
+                      id="solOne"
+                      init={{
+                        browser_spellcheck: false,
+                        height: 400,
+                        width: 650,
+                        setup: (editor) => {
+                          editor.on("keydown", (e) => {
+                            if (e.code == "F12") {
+                              console.log("F12");
+                              return false;
+                            } else if (e.ctrlKey && e.code === "KeyA") {
+                              console.log("CTRL + A");
+                              alert(
+                                "Text Selection Not Allowed\n\nReloading The Page...."
+                              );
+                              window.location.reload();
+                              editor.setContent = "Your writings are Gone";
+                              editor.initialValue = "Gone";
+                              return false;
+                            } else if (e.ctrlKey && e.code === "KeyS") {
+                              console.log("CTRL + S");
+                              alert("Text Saving Not Allowed");
+                              return false;
+                            } else if (
+                              e.ctrlKey &&
+                              e.shiftKey &&
+                              e.code == "KeyI"
+                            ) {
+                              console.log("CTRL + SHIFT + I");
+                              return false;
+                            } else
+                              console.log("keydown press detected" + e.code);
+                          });
+                        },
+                        menubar: false,
+                        plugins: [],
+                        paste_preprocess: function (plugin, args) {
+                          args.stopImmediatePropagation();
+                          args.stopPropagation();
+                          args.preventDefault();
+                          console.log("Attempted to paste: ", args.content);
+                          args.content = "";
+                        },
+                        contextmenu_never_use_native: true,
+                        contextmenu: false,
+                        toolbar: false,
+                        statusbar: false,
+                        auto_focus: true,
+                        content_style: colour,
+                      }}
+                    />
                   </Card>
                 </FormGroup>
                 <FormGroup className="mt-2 solution hide" id="sol2">
@@ -291,9 +514,10 @@ const Bisector = () => {
                         border: "none",
                       }}
                       type="select"
-                      id="lang2"
+                      id="langSolTwo"
                       placeholder="Language"
-                      name="lang2"
+                      name="langSolTwo"
+                      onChange={fieldChanged}
                       defaultValue={0}
                     >
                       <option disabled value={0}>
@@ -305,7 +529,66 @@ const Bisector = () => {
                     </Input>
                   </span>
                   <Card className="txtarea">
-                    <CustomEditor id="ta2" />
+                    {/* <CustomEditor
+                      id="solTwo"
+                      name="solTwo"
+                      onChange={fieldChanged}
+                    /> */}
+                    <Editor
+                      apiKey="bgx3j6j885xiq1toxfp8jbpr389dyji48oc6mejvg4s557un"
+                      onInit={(evt, editor) => (editorRef.current = editor)}
+                      onEditorChange={setSolTwo}
+                      id="solTwo"
+                      init={{
+                        browser_spellcheck: false,
+                        height: 400,
+                        width: 650,
+                        setup: (editor) => {
+                          editor.on("keydown", (e) => {
+                            if (e.code == "F12") {
+                              console.log("F12");
+                              return false;
+                            } else if (e.ctrlKey && e.code === "KeyA") {
+                              console.log("CTRL + A");
+                              alert(
+                                "Text Selection Not Allowed\n\nReloading The Page...."
+                              );
+                              window.location.reload();
+                              editor.setContent = "Your writings are Gone";
+                              editor.initialValue = "Gone";
+                              return false;
+                            } else if (e.ctrlKey && e.code === "KeyS") {
+                              console.log("CTRL + S");
+                              alert("Text Saving Not Allowed");
+                              return false;
+                            } else if (
+                              e.ctrlKey &&
+                              e.shiftKey &&
+                              e.code == "KeyI"
+                            ) {
+                              console.log("CTRL + SHIFT + I");
+                              return false;
+                            } else
+                              console.log("keydown press detected" + e.code);
+                          });
+                        },
+                        menubar: false,
+                        plugins: [],
+                        paste_preprocess: function (plugin, args) {
+                          args.stopImmediatePropagation();
+                          args.stopPropagation();
+                          args.preventDefault();
+                          console.log("Attempted to paste: ", args.content);
+                          args.content = "";
+                        },
+                        contextmenu_never_use_native: true,
+                        contextmenu: false,
+                        toolbar: false,
+                        statusbar: false,
+                        auto_focus: true,
+                        content_style: colour,
+                      }}
+                    />
                   </Card>
                 </FormGroup>
                 <FormGroup className="mt-2 solution hide" id="sol3">
@@ -320,10 +603,11 @@ const Bisector = () => {
                         border: "none",
                       }}
                       type="select"
-                      id="lang3"
+                      id="langSolThree"
                       placeholder="Language"
-                      name="lang3"
+                      name="langSolThree"
                       defaultValue={0}
+                      onChange={fieldChanged}
                     >
                       <option disabled value={0}>
                         --language--
@@ -334,7 +618,66 @@ const Bisector = () => {
                     </Input>
                   </span>
                   <Card className="txtarea">
-                    <CustomEditor id="ta3" />
+                    {/* <CustomEditor
+                      id="solThree"
+                      name="solThree"
+                      onChange={fieldChanged}
+                    /> */}
+                    <Editor
+                      apiKey="bgx3j6j885xiq1toxfp8jbpr389dyji48oc6mejvg4s557un"
+                      onInit={(evt, editor) => (editorRef.current = editor)}
+                      onEditorChange={setSolThree}
+                      id="solThree"
+                      init={{
+                        browser_spellcheck: false,
+                        height: 400,
+                        width: 650,
+                        setup: (editor) => {
+                          editor.on("keydown", (e) => {
+                            if (e.code == "F12") {
+                              console.log("F12");
+                              return false;
+                            } else if (e.ctrlKey && e.code === "KeyA") {
+                              console.log("CTRL + A");
+                              alert(
+                                "Text Selection Not Allowed\n\nReloading The Page...."
+                              );
+                              window.location.reload();
+                              editor.setContent = "Your writings are Gone";
+                              editor.initialValue = "Gone";
+                              return false;
+                            } else if (e.ctrlKey && e.code === "KeyS") {
+                              console.log("CTRL + S");
+                              alert("Text Saving Not Allowed");
+                              return false;
+                            } else if (
+                              e.ctrlKey &&
+                              e.shiftKey &&
+                              e.code == "KeyI"
+                            ) {
+                              console.log("CTRL + SHIFT + I");
+                              return false;
+                            } else
+                              console.log("keydown press detected" + e.code);
+                          });
+                        },
+                        menubar: false,
+                        plugins: [],
+                        paste_preprocess: function (plugin, args) {
+                          args.stopImmediatePropagation();
+                          args.stopPropagation();
+                          args.preventDefault();
+                          console.log("Attempted to paste: ", args.content);
+                          args.content = "";
+                        },
+                        contextmenu_never_use_native: true,
+                        contextmenu: false,
+                        toolbar: false,
+                        statusbar: false,
+                        auto_focus: true,
+                        content_style: colour,
+                      }}
+                    />
                   </Card>
                 </FormGroup>
               </Card>
@@ -346,13 +689,38 @@ const Bisector = () => {
                   marginTop: "-30px",
                   minHeight: "30px",
                 }}
+                onClick={submitForm}
               >
                 SUBMIT ASSESMENT
               </Button>
             </div>
           </form>
+          {/* {JSON.stringify(language)} */}
         </CardBody>
       </Card>
+
+      <div className="notice text-center" id="notice">
+        <Button onClick={viewTest} color="primary" className="noticeButton">
+          I Understand, Take Assessment
+        </Button>
+      </div>
+
+      <div className="revealer revealHidden" id="revealer">
+        <CardGroup>
+          <Card>
+            <CardHeader>Solution 1</CardHeader>
+            <JoditEditor ref={editor} config={config} className="joditStyle" />
+          </Card>
+          <Card>
+            <CardHeader>Solution 2</CardHeader>
+            <JoditEditor ref={editor} config={config} className="joditStyle" />
+          </Card>
+          <Card>
+            <CardHeader>Solution 3</CardHeader>
+            <JoditEditor ref={editor} config={config} className="joditStyle" />
+          </Card>
+        </CardGroup>
+      </div>
     </div>
   );
   {
