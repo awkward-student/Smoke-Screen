@@ -14,13 +14,13 @@ import { toast } from "react-toastify";
 import { LoginUser } from "../services/user-service";
 import { doLogin, getCurrentUserProfile } from "../auth/auth";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 const Login = () => {
-
-  // useEffect(()=>{
-  //   window.location.reload();
-  // },[])
+//   useEffect(() => {
+//     if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+//       toast.warning("Can not login twice!");
+//     }
+//   }, []);
 
   const navigate = useNavigate();
 
@@ -35,6 +35,7 @@ const Login = () => {
   };
 
   //submit form
+  /* eslint-disable */
   const submitForm = (e) => {
     e.preventDefault();
     if (
@@ -47,13 +48,9 @@ const Login = () => {
     //submit data to server
     LoginUser(credentials)
       .then((res) => {
-        if (res == undefined) {
-          toast.error("Login Failed : Can login only once.");
-          // window.location.reload(true);
-        }
         doLogin(res, () => {
           toast.success("Login Successfull");
-          if (getCurrentUserProfile() == "ROLE_ADMIN") {
+          if (getCurrentUserProfile() === "ROLE_ADMIN") {
             navigate("/admin/dashboard");
           } else {
             navigate("/user/dashboard");
@@ -62,11 +59,12 @@ const Login = () => {
       })
       .catch((error) => {
         console.log(error);
-        if (error.message == "Network Error" && error.name == "AxiosError") {
-          toast.error("Login Failed : Can login only once.");
-          setTimeout(() => {
-            window.location.reload(true);
-          }, 5000);
+        if (error.message === "Network Error" && error.name === "AxiosError") {
+          window.location.reload(true);
+          // toast.error("Login Failed : Can login only once.");
+          // setTimeout(() => {
+          //   window.location.reload(true);
+          // }, 0);
         }
         toast.error("Login Failed : " + error.response.data.message);
         setCredentials({
@@ -74,11 +72,11 @@ const Login = () => {
           password: "",
         });
       });
+    /* eslint-disable */
   };
 
   return (
     <Base>
-    
       <div
         className=""
         style={{
