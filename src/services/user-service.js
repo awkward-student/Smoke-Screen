@@ -1,3 +1,4 @@
+import { error } from "jquery";
 import { Axios } from "./helper";
 
 export const RegisterUser = (userData) => {
