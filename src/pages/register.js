@@ -13,6 +13,7 @@ import {
 } from "reactstrap";
 import { RegisterUser } from "../services/user-service";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -28,6 +29,8 @@ const Register = () => {
     setUserData({ ...userData, [prop]: e.target.value });
   };
 
+  const navigate = useNavigate();
+
   //submit form
   const submitForm = (e) => {
     e.preventDefault();
@@ -38,13 +41,18 @@ const Register = () => {
           name: "",
           email: "",
           password: "",
-          branch: "0",
+          branch: "",
           sem: "0",
         });
+        navigate("/login");
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Invalid form data");
+        toast.error(error.response.data.name);
+        toast.error(error.response.data.email);
+        toast.error(error.response.data.password);
+        toast.error(error.response.data.branch);
+        toast.error(error.response.data.sem);
       });
   };
 
@@ -89,6 +97,7 @@ const Register = () => {
                   placeholder="Your Name"
                   onChange={(e) => handleChange(e, "name")}
                   value={userData.name}
+                  // required
                 ></Input>
               </FormGroup>
               <FormGroup>
@@ -98,6 +107,7 @@ const Register = () => {
                   placeholder="Your Email"
                   onChange={(e) => handleChange(e, "email")}
                   value={userData.email}
+                  // required
                 ></Input>
               </FormGroup>
               <FormGroup>
@@ -107,6 +117,7 @@ const Register = () => {
                   placeholder="Create Password"
                   onChange={(e) => handleChange(e, "password")}
                   value={userData.password}
+                  // required
                 ></Input>
               </FormGroup>
               <FormGroup>
@@ -114,9 +125,10 @@ const Register = () => {
                   id="branch"
                   type="select"
                   placeholder="Select Branch"
-                  defaultValue={0}
+                  // defaultValue={0}
                   onChange={(e) => handleChange(e, "branch")}
                   value={userData.branch}
+                  // required
                 >
                   <option disabled value={0}>
                     Select Branch
@@ -130,9 +142,10 @@ const Register = () => {
                   id="sem"
                   type="select"
                   placeholder="Select Sem"
-                  defaultValue={0}
+                  // defaultValue={0}
                   onChange={(e) => handleChange(e, "sem")}
                   value={userData.sem}
+                  // required
                 >
                   <option disabled value={0}>
                     Select Semester
