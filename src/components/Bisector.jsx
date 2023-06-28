@@ -1,22 +1,16 @@
 import JoditEditor from "jodit-react";
 import React, { useRef, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
-// import "../App.css";
 import {
   Button,
   Card,
   CardBody,
   CardGroup,
   CardHeader,
-  Container,
   FormGroup,
   Input,
-  Label,
-  Nav,
-  NavItem,
   Navbar,
 } from "reactstrap";
-import CustomEditor from "./CustomEditor";
 import $ from "jquery";
 import { useState } from "react";
 import {
@@ -31,37 +25,41 @@ import { SubmitSolution } from "../services/solution-service";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
+// Returnable Component Service
 const Bisector = () => {
-  {
-    <head>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-      <script>
-        {$(window).on("keydown", function (event) {
-          if (event.code == "F12") {
-            return false;
-          } else if (event.code == "F11") {
-            return false;
-          } else if (event.code == "Escape") {
-            console.log("hello");
-            return false;
-          } else if (event.ctrlKey && event.shiftKey && event.code == "KeyI") {
-            return false;
-          } else if (event.ctrlKey && event.code == "KeyI") {
-            return false;
-          }
-        })}
-      </script>
-    </head>;
-  }
-  useEffect(() => {
-    document.addEventListener("contextmenu", (e) => e.preventDefault());
-    function ctrlShiftKey(e, code) {
-      return e.ctrlKey && e.shiftKey && e.code === code.charCodeAt(0);
-    }
+  // Custom page scripts - jQuery : To disable Key Presses on Dashboard page outside of solution card window
+  // Needed and are not removable
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+      {$(window).on("keydown", function (event) {
+        if (event.code === "F12") {
+          return false;
+        } else if (event.code === "F11") {
+          return false;
+        } else if (event.code === "Escape") {
+          return false;
+        } else if (event.ctrlKey && event.shiftKey && event.code === "KeyI") {
+          return false;
+        } else if (event.ctrlKey && event.code === "KeyI") {
+          return false;
+        } else if (event.ctrlKey && event.shiftKey && event.code === "KeyJ") {
+          return false;
+        } else if (event.ctrlKey && event.shiftKey && event.code === "KeyC") {
+          return false;
+        } else if (event.ctrlKey && event.code === "KeyU") {
+          return false;
+        }
+      })}
+    </script>
+  </head>;
 
+  // Events and functions to be called once on Loading the component
+  useEffect(() => {
+    // Event listener to log and modify fullscreen status
     document.addEventListener("fullscreenchange", (e) => {
       if (document.fullscreenElement == null) {
-        SubmitSolution(getSolutionContent(), getCurrentUser().id)
+        SubmitSolution(getSolutionContent(), currentUserId)
           .then((res) => {
             toast.success("Assessment Submited Automatically");
             doLogout(() => {
@@ -81,28 +79,20 @@ const Bisector = () => {
       }
     });
 
-    document.onkeydown = (e) => {
-      if (
-        e.code === 123 ||
-        ctrlShiftKey(e, "I") ||
-        ctrlShiftKey(e, "J") ||
-        ctrlShiftKey(e, "C") ||
-        (e.ctrlKey && e.code === "U".charCodeAt(0))
-      )
-        return false;
-    };
+    // Prevent default behaviour of right click on the dashboard page
     const handleContextMenu = (e) => {
       e.preventDefault();
     };
-
     document.addEventListener("contextmenu", handleContextMenu);
     return () => {
       document.removeEventListener("contextmenu", handleContextMenu);
     };
   }, []);
 
+  // Needed constants are as follows:
+
+  // Configuration details for Jodit Editor which is used to reveal code
   const config = {
-    autofocus: true,
     enter: "BR",
     toolbar: false,
     iframe: true,
@@ -118,6 +108,55 @@ const Bisector = () => {
     disabled: true,
   };
 
+  // The Jodit editor uses a null reference and it is provided by this constant
+  const editor = useRef(null);
+
+  // The TinyMCE editor uses a null reference and it is provided by this constant
+  const editorRef = useRef(null);
+
+  // Navigator function used for navigation from this page to another after any event call
+  const navigate = useNavigate();
+
+  // Current User Id constant
+  const currentUserId = getCurrentUser().id;
+
+  // Body CSS for the solution window to keep it black & blind
+  const colour =
+    "body { background-color:black ;font-family:Helvetica,Arial,sans-serif; font-size:14px; color:transparent; user-select:none;-webkit-user-select:none;-webkit-touch-callout: none;-khtml-user-select: none; -moz-user-select: none;-ms-user-select: none;}";
+
+  // The solution content carrier, think of this as a set of variables needed to assign values of the solution content provided by the user
+  // The values assigned to the variables are initial and will be changed on event calls
+  const [content, setContent] = useState({
+    langQ1: "",
+    langQ2: "",
+    langQ3: "",
+    solutionQ1: "",
+    solutionQ2: "",
+    solutionQ3: "",
+    timeTaken: "",
+    flashCount: "0",
+  });
+
+  // The variables of the 'content' defined below to be changed saperately
+
+  // Only Sol One will be changed on call of setSolOne()
+  const [solOne, setSolOne] = useState(null);
+  // Only Sol Two will be changed on call of setSolTwo()
+  const [solTwo, setSolTwo] = useState(null);
+  // Only Sol Three will be changed on call of setSolThree()
+  const [solThree, setSolThree] = useState(null);
+  // Only language will be changed on call of setLanguage()
+  const [language, setLanguage] = useState({
+    langSolOne: "",
+    langSolTwo: "",
+    langSolThree: "",
+  });
+  // Time changes
+  const [time, setTime] = useState(null);
+
+  // Needed functions are as follows:
+
+  // Question and Solution frame toggler: Changes Question and Solution box on click event
   const switchQuestion = (event) => {
     if ([event.target.id] == "q1") {
       document.getElementById("que1").classList.remove("hide");
@@ -145,34 +184,17 @@ const Bisector = () => {
     }
   };
 
-  const navigate = useNavigate();
-
-  const editor = useRef(null);
-
+  // Function to handle the select language option on the dashboard
   const fieldChanged = (e) => {
     setLanguage({ ...language, [e.target.id]: e.target.value });
   };
 
-  const [solOne, setSolOne] = useState(null);
-  const [solTwo, setSolTwo] = useState(null);
-  const [solThree, setSolThree] = useState(null);
-  const [language, setLanguage] = useState({
-    langSolOne: "",
-    langSolTwo: "",
-    langSolThree: "",
-  });
+  // Function to handle time change
+  const timeChanged = (mins, secs) => {
+    setContent({ ...content, timeTaken: 38 - mins + ":" + 60 - secs });
+  };
 
-  const [content, setContent] = useState({
-    langQ1: "",
-    langQ2: "",
-    langQ3: "",
-    solutionQ1: "",
-    solutionQ2: "",
-    solutionQ3: "",
-    timeTaken: "",
-    flashCount: "0",
-  });
-
+  // Function calls to handle the change in the following variables
   useEffect(() => {
     setContent({ ...content, solutionQ1: solOne });
   }, [solOne]);
@@ -192,13 +214,18 @@ const Bisector = () => {
     setContent({ ...content, langQ3: language.langSolThree });
   }, [language.langSolThree]);
   useEffect(() => {
+    setContent({ ...content, timeTaken: time });
+  }, [time]);
+  // Function call to change the whole content each time on the change of the above mentioned variables of the content set
+  useEffect(() => {
     saveSolution(content);
+    // console.log(content); uesed for testing
   }, [content]);
 
+  // Submit Form Function: Called on button click
   const submitForm = (e) => {
     e.preventDefault();
     const finalContent = getSolutionContent();
-
     SubmitSolution(finalContent, getCurrentUser().id)
       .then((res) => {
         stopTimer();
@@ -217,64 +244,15 @@ const Bisector = () => {
       });
   };
 
-  const editorRef = useRef(null);
-  // const log = () => {
-  //   if (editorRef.current) {
-  //     console.log(editorRef.current.getContent());
-  //   }
-  // };
-
-  const colour =
-    "body { background-color:black ;font-family:Helvetica,Arial,sans-serif; font-size:14px; color:transparent; user-select:none;-webkit-user-select:none;-webkit-touch-callout: none;-khtml-user-select: none; -moz-user-select: none;-ms-user-select: none;}";
-  const revealColour =
-    "body { background-color:black ;font-family:Helvetica,Arial,sans-serif; font-size:14px; color:yellow; user-select:none;-webkit-user-select:none;-webkit-touch-callout: none;-khtml-user-select: none; -moz-user-select: none;-ms-user-select: none;}";
-  useEffect(() => {
-    const handleContextMenu = (e) => {
-      e.preventDefault();
-    };
-
-    return () => {
-      document.removeEventListener("contextmenu", handleContextMenu);
-    };
-  }, []);
-
-  const addMinutes = (date, minutes) => {
-    return new Date(date + minutes * 60000);
-  };
-
-  var x;
-
-  const startTimer = () => {
-    const countDownDate = addMinutes(new Date().getTime(), 39);
-    x = setInterval(() => {
-      let now = new Date().getTime();
-      let distance = countDownDate - now;
-      let mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      let secs = Math.floor((distance % (1000 * 60)) / 1000);
-      document.getElementById("timer").innerHTML = mins + " : " + secs;
-      if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("timer").innerHTML = "EXPIRED";
-      }
-    }, 1000);
-  };
-
-  const stopTimer = () => {
-    clearInterval(x);
-    document.exitFullscreen();
-  };
-
+  // Rules acceptance function to show dashboard
   const viewTest = () => {
     document.getElementById("notice").classList.add("noticeHidden");
     document.documentElement.requestFullscreen();
-    //
-    //
-    //
     startTimer();
   };
 
+  // Code revealer function: Called on button click
   const revealCode = () => {
-    // console.log(content.flashCount)
     switch (content.flashCount) {
       case "0":
         setContent({ ...content, flashCount: "1" });
@@ -298,12 +276,61 @@ const Bisector = () => {
         }, 5000);
         break;
       default:
+        document.getElementById("revealer").classList.remove("revealHidden");
+        setTimeout(() => {
+          document.getElementById("revealer").classList.add("revealHidden");
+        }, 4000);
         return;
     }
   };
 
+  // Watch And Timer management functions:
+
+  let x; // interval variables
+
+  // Function to set 39 mins reverse watch
+  const addMinutes = (date, minutes) => {
+    return new Date(date + minutes * 60000);
+  };
+
+  // Start
+  let mins, secs;
+  const startTimer = () => {
+    const countDownDate = addMinutes(new Date().getTime(), 39);
+    x = setInterval(() => {
+      let now = new Date().getTime();
+      let distance = countDownDate - now;
+      mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      secs = Math.floor((distance % (1000 * 60)) / 1000);
+      try {
+        document.getElementById("timer").innerHTML = mins + " : " + secs;
+        let m = 38 - mins;
+        let s = 60 - secs;
+        let t = m + ":" + s;
+        setTime(t);
+      } catch (e) {
+        window.location.reload(true);
+      }
+      if (distance < 0) {
+        clearInterval(x);
+        // Submit data after full time
+      }
+    }, 1000);
+  };
+
+  // Stop
+  const stopTimer = () => {
+    clearInterval(x);
+    document.exitFullscreen();
+  };
+
+  // -------------------------------------------------------------------------------------------------------------------------
+  // Dashboard Page Body --- The Main Component that will be loaded on the page with the above defined functions and constants
+  // -------------------------------------------------------------------------------------------------------------------------
+
   return (
     <div className="codeBook mt-0 pt-1">
+      {/* Deatils Navbar  */}
       <Navbar
         dark
         expand="md"
@@ -319,6 +346,7 @@ const Bisector = () => {
       >
         Hello, {isLoggedIn() && getCurrentUser().name}
         <span id="timer"></span>
+        {/* Reveal Code Button */}
         <Button
           onClick={revealCode}
           disabled={content.flashCount >= 3}
@@ -328,10 +356,12 @@ const Bisector = () => {
           Reveal Code
         </Button>
       </Navbar>
+
       <Card className="codeBookCard" style={{ border: "none" }}>
         <CardBody className="formCard mt-0 mb-4">
           <form className="formX" onSubmit={submitForm}>
             <CardGroup className="codeCard mt-4 mb-4">
+              {/* Questions Card  */}
               <Card
                 className="bx questionBox px-2"
                 style={{
@@ -448,6 +478,7 @@ const Bisector = () => {
                 </div>
               </Card>
 
+              {/* Solutions Card  */}
               <Card
                 className="bx solutionBox px-2"
                 style={{ border: "none", marginLeft: "2px", maxWidth: "90%" }}
@@ -496,7 +527,7 @@ const Bisector = () => {
                         width: 650,
                         setup: (editor) => {
                           editor.on("keydown", (e) => {
-                            if (e.code == "F12") {
+                            if (e.code === "F12") {
                               console.log("F12");
                               return false;
                             } else if (e.ctrlKey && e.code === "KeyA") {
@@ -505,8 +536,8 @@ const Bisector = () => {
                                 "Text Selection Not Allowed\n\nReloading The Page...."
                               );
                               window.location.reload();
-                              editor.setContent = "Your writings are Gone";
-                              editor.initialValue = "Gone";
+                              // editor.setContent = "Your writings are Gone";
+                              // editor.initialValue = "Gone";
                               return false;
                             } else if (e.ctrlKey && e.code === "KeyS") {
                               console.log("CTRL + S");
@@ -515,7 +546,7 @@ const Bisector = () => {
                             } else if (
                               e.ctrlKey &&
                               e.shiftKey &&
-                              e.code == "KeyI"
+                              e.code === "KeyI"
                             ) {
                               console.log("CTRL + SHIFT + I");
                               return false;
@@ -585,7 +616,7 @@ const Bisector = () => {
                         width: 650,
                         setup: (editor) => {
                           editor.on("keydown", (e) => {
-                            if (e.code == "F12") {
+                            if (e.code === "F12") {
                               console.log("F12");
                               return false;
                             } else if (e.ctrlKey && e.code === "KeyA") {
@@ -594,8 +625,8 @@ const Bisector = () => {
                                 "Text Selection Not Allowed\n\nReloading The Page...."
                               );
                               window.location.reload();
-                              editor.setContent = "Your writings are Gone";
-                              editor.initialValue = "Gone";
+                              // editor.setContent = "Your writings are Gone";
+                              // editor.initialValue = "Gone";
                               return false;
                             } else if (e.ctrlKey && e.code === "KeyS") {
                               console.log("CTRL + S");
@@ -604,7 +635,7 @@ const Bisector = () => {
                             } else if (
                               e.ctrlKey &&
                               e.shiftKey &&
-                              e.code == "KeyI"
+                              e.code === "KeyI"
                             ) {
                               console.log("CTRL + SHIFT + I");
                               return false;
@@ -674,7 +705,7 @@ const Bisector = () => {
                         width: 650,
                         setup: (editor) => {
                           editor.on("keydown", (e) => {
-                            if (e.code == "F12") {
+                            if (e.code === "F12") {
                               console.log("F12");
                               return false;
                             } else if (e.ctrlKey && e.code === "KeyA") {
@@ -683,8 +714,8 @@ const Bisector = () => {
                                 "Text Selection Not Allowed\n\nReloading The Page...."
                               );
                               window.location.reload();
-                              editor.setContent = "Your writings are Gone";
-                              editor.initialValue = "Gone";
+                              // editor.setContent = "Your writings are Gone";
+                              // editor.initialValue = "Gone";
                               return false;
                             } else if (e.ctrlKey && e.code === "KeyS") {
                               console.log("CTRL + S");
@@ -693,7 +724,7 @@ const Bisector = () => {
                             } else if (
                               e.ctrlKey &&
                               e.shiftKey &&
-                              e.code == "KeyI"
+                              e.code === "KeyI"
                             ) {
                               console.log("CTRL + SHIFT + I");
                               return false;
@@ -722,6 +753,8 @@ const Bisector = () => {
                 </FormGroup>
               </Card>
             </CardGroup>
+
+            {/* Form Submit Button  */}
             <div className="text-center">
               <Button
                 color="success"
@@ -735,16 +768,17 @@ const Bisector = () => {
               </Button>
             </div>
           </form>
-          {/* {JSON.stringify(language)} */}
         </CardBody>
       </Card>
 
+      {/* Rule Book Window */}
       <div className="notice text-center" id="notice">
         <Button onClick={viewTest} color="primary" className="noticeButton">
           I Understand, Take Assessment
         </Button>
       </div>
 
+      {/* Reveal Code Window */}
       <div className="revealer revealHidden" id="revealer">
         <CardGroup>
           <Card>
@@ -779,10 +813,6 @@ const Bisector = () => {
       </div>
     </div>
   );
-  {
-    document.getElementsByClassName("jodit-wysiwyg").style.color =
-      "transparent";
-  }
 };
 
 export default Bisector;
