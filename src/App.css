@@ -1,5 +1,10 @@
+body{
+  cursor: default;
+}
+
 .App {
   text-align: center;
+
 }
 
 .App-logo {
