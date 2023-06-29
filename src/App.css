@@ -283,3 +283,7 @@ body{
   display: none;
   z-index: -99;
 }
+
+.inf{
+  display: flex;
+}
