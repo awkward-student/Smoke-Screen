@@ -137,7 +137,9 @@ const Login = () => {
             </Form>
           </CardBody>
 
-          <CardFooter style={{ minWidth: "25vw" }}></CardFooter>
+          <CardFooter style={{ minWidth: "25vw" }}>
+            <span style={{color:"red", fontWeight:"200", fontSize:"13px"}}> * You can not login twice if taken assesment already * </span>
+          </CardFooter>
         </Card>
       </div>
     </Base>
