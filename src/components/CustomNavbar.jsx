@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { NavLink as ReactLink } from "react-router-dom";
+import { NavLink as ReactLink, useNavigate } from "react-router-dom";
 import {
   Collapse,
   Navbar,
@@ -10,17 +10,34 @@ import {
   Nav,
   NavItem,
   NavLink,
+  Button,
 } from "reactstrap";
-import { getCurrentUser, isLoggedIn } from "../auth/auth";
+import {
+  doLogout,
+  getCurrentUser,
+  getCurrentUserProfile,
+  isLoggedIn,
+} from "../auth/auth";
+import { toast } from "react-toastify";
+
 
 const CustomNavbar = () => {
+
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState(undefined);
+  const [userProfile, setUserProfile] = useState(false);
 
   useEffect(() => {
     setLogin(isLoggedIn());
     setUser(getCurrentUser());
+    setUserProfile(getCurrentUserProfile() == "ROLE_ADMIN");
   }, [login]);
+
+  const performLogout = () => {
+    doLogout(()=>{
+      toast.info("Logged out successfully.")
+    })
+  }
 
   return (
     <div>
@@ -47,22 +64,17 @@ const CustomNavbar = () => {
         </NavbarBrand>
         <NavbarToggler />
         <Collapse navbar>
-          <Nav className="me-auto" navbar>
-            <NavItem>
-              <NavLink></NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink></NavLink>
-            </NavItem>
-          </Nav>
+          <Nav className="me-auto" navbar></Nav>
           <Nav navbar>
             {login && (
               <>
                 <NavItem>
                   <NavLink>{user.email}</NavLink>
                 </NavItem>
+                
               </>
             )}
+            
             {!login && (
               <>
                 <NavItem>
