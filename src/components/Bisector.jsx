@@ -127,9 +127,9 @@ const Bisector = () => {
   // The solution content carrier, think of this as a set of variables needed to assign values of the solution content provided by the user
   // The values assigned to the variables are initial and will be changed on event calls
   const [content, setContent] = useState({
-    langQ1: "",
-    langQ2: "",
-    langQ3: "",
+    langQ1: "c++",
+    langQ2: "c++",
+    langQ3: "c++",
     solutionQ1: "",
     solutionQ2: "",
     solutionQ3: "",
@@ -359,6 +359,7 @@ const Bisector = () => {
 
       <Card className="codeBookCard" style={{ border: "none" }}>
         <CardBody className="formCard mt-0 mb-4">
+          {/* The form that contains all the solution screens and language selectors */}
           <form className="formX" onSubmit={submitForm}>
             <CardGroup className="codeCard mt-4 mb-4">
               {/* Questions Card  */}
@@ -371,10 +372,12 @@ const Bisector = () => {
                 }}
               >
                 <div className="buttonsConfig">
+                  {/* Question toggler button panel */}
                   <CardGroup
                     className="questionToggler"
                     style={{ minHeight: "80px" }}
                   >
+                    {/* Button 1 */}
                     <Card className="mx-1 my-1" style={{ border: "none" }}>
                       <Button
                         style={{
@@ -387,6 +390,8 @@ const Bisector = () => {
                         QUESTION - 1
                       </Button>
                     </Card>
+
+                    {/* Button 2 */}
                     <Card className="mx-1 my-1" style={{ border: "none" }}>
                       <Button
                         style={{
@@ -399,6 +404,8 @@ const Bisector = () => {
                         QUESTION - 2
                       </Button>
                     </Card>
+
+                    {/* Button 3 */}
                     <Card className="mx-1 my-1" style={{ border: "none" }}>
                       <Button
                         style={{
@@ -413,6 +420,8 @@ const Bisector = () => {
                     </Card>
                   </CardGroup>
                 </div>
+
+                {/* Question 1 */}
                 <div id="que1" className="questionDiv">
                   <p>
                     <b>
@@ -436,6 +445,8 @@ const Bisector = () => {
                     <br />
                   </p>
                 </div>
+
+                {/* Question 2 */}
                 <div id="que2" className="questionDiv hide">
                   <p>
                     <b>
@@ -457,6 +468,8 @@ const Bisector = () => {
                     reiciendis minima magni optio?
                   </p>
                 </div>
+
+                {/* Question 3 */}
                 <div id="que3" className="questionDiv hide">
                   <p>
                     <b>
@@ -483,7 +496,9 @@ const Bisector = () => {
                 className="bx solutionBox px-2"
                 style={{ border: "none", marginLeft: "2px", maxWidth: "90%" }}
               >
+                {/* Solution 1 from group */}
                 <FormGroup className="mt-2 solution" id="sol1">
+                  {/* Language 1 */}
                   <span className="langChoose">
                     <Input
                       className="my-2 py-0"
@@ -498,24 +513,17 @@ const Bisector = () => {
                       id="langSolOne"
                       placeholder="Language"
                       name="langSolOne"
-                      defaultValue={0}
+                      defaultValue={"c++"}
                       onChange={fieldChanged}
                     >
-                      <option disabled value={0}>
-                        --language--
-                      </option>
-                      <option value={"java"}>Java</option>
                       <option value={"c++"}>C++</option>
+                      <option value={"java"}>Java</option>
                       <option value={"python"}>Python</option>
                     </Input>
                   </span>
-                  <Card className="txtarea">
-                    {/* <CustomEditor
-                      selector="textareaEdit"
-                      id="solOne"
-                      name="solOne"
-                    /> */}
 
+                  {/* Editor 1 */}
+                  <Card className="txtarea">
                     <Editor
                       apiKey="bgx3j6j885xiq1toxfp8jbpr389dyji48oc6mejvg4s557un"
                       onInit={(evt, editor) => (editorRef.current = editor)}
@@ -536,8 +544,6 @@ const Bisector = () => {
                                 "Text Selection Not Allowed\n\nReloading The Page...."
                               );
                               window.location.reload();
-                              // editor.setContent = "Your writings are Gone";
-                              // editor.initialValue = "Gone";
                               return false;
                             } else if (e.ctrlKey && e.code === "KeyS") {
                               console.log("CTRL + S");
@@ -550,8 +556,7 @@ const Bisector = () => {
                             ) {
                               console.log("CTRL + SHIFT + I");
                               return false;
-                            } else
-                              console.log("keydown press detected" + e.code);
+                            }
                           });
                         },
                         menubar: false,
@@ -573,7 +578,10 @@ const Bisector = () => {
                     />
                   </Card>
                 </FormGroup>
+
+                {/* Solution 2 form group */}
                 <FormGroup className="mt-2 solution hide" id="sol2">
+                  {/* Language 2 */}
                   <span className="langChoose">
                     <Input
                       className="my-2 py-0"
@@ -587,24 +595,18 @@ const Bisector = () => {
                       type="select"
                       id="langSolTwo"
                       placeholder="Language"
+                      defaultValue={"c++"}
                       name="langSolTwo"
                       onChange={fieldChanged}
-                      defaultValue={0}
                     >
-                      <option disabled value={0}>
-                        --language--
-                      </option>
-                      <option value={"java"}>Java</option>
                       <option value={"c++"}>C++</option>
+                      <option value={"java"}>Java</option>
                       <option value={"python"}>Python</option>
                     </Input>
                   </span>
+
+                  {/* Editor 2 */}
                   <Card className="txtarea">
-                    {/* <CustomEditor
-                      id="solTwo"
-                      name="solTwo"
-                      onChange={fieldChanged}
-                    /> */}
                     <Editor
                       apiKey="bgx3j6j885xiq1toxfp8jbpr389dyji48oc6mejvg4s557un"
                       onInit={(evt, editor) => (editorRef.current = editor)}
@@ -625,8 +627,6 @@ const Bisector = () => {
                                 "Text Selection Not Allowed\n\nReloading The Page...."
                               );
                               window.location.reload();
-                              // editor.setContent = "Your writings are Gone";
-                              // editor.initialValue = "Gone";
                               return false;
                             } else if (e.ctrlKey && e.code === "KeyS") {
                               console.log("CTRL + S");
@@ -639,8 +639,7 @@ const Bisector = () => {
                             ) {
                               console.log("CTRL + SHIFT + I");
                               return false;
-                            } else
-                              console.log("keydown press detected" + e.code);
+                            }
                           });
                         },
                         menubar: false,
@@ -662,7 +661,10 @@ const Bisector = () => {
                     />
                   </Card>
                 </FormGroup>
+
+                {/* Solution 3 form group */}
                 <FormGroup className="mt-2 solution hide" id="sol3">
+                  {/* Language 3 */}
                   <span className="langChoose ">
                     <Input
                       className="my-2 py-0"
@@ -677,23 +679,17 @@ const Bisector = () => {
                       id="langSolThree"
                       placeholder="Language"
                       name="langSolThree"
-                      defaultValue={0}
+                      defaultValue={"c++"}
                       onChange={fieldChanged}
                     >
-                      <option disabled value={0}>
-                        --language--
-                      </option>
-                      <option value={"java"}>Java</option>
                       <option value={"c++"}>C++</option>
+                      <option value={"java"}>Java</option>
                       <option value={"python"}>Python</option>
                     </Input>
                   </span>
+
+                  {/* Editor 3 */}
                   <Card className="txtarea">
-                    {/* <CustomEditor
-                      id="solThree"
-                      name="solThree"
-                      onChange={fieldChanged}
-                    /> */}
                     <Editor
                       apiKey="bgx3j6j885xiq1toxfp8jbpr389dyji48oc6mejvg4s557un"
                       onInit={(evt, editor) => (editorRef.current = editor)}
@@ -706,16 +702,13 @@ const Bisector = () => {
                         setup: (editor) => {
                           editor.on("keydown", (e) => {
                             if (e.code === "F12") {
-                              console.log("F12");
                               return false;
                             } else if (e.ctrlKey && e.code === "KeyA") {
                               console.log("CTRL + A");
                               alert(
                                 "Text Selection Not Allowed\n\nReloading The Page...."
                               );
-                              window.location.reload();
-                              // editor.setContent = "Your writings are Gone";
-                              // editor.initialValue = "Gone";
+                              // window.location.reload();
                               return false;
                             } else if (e.ctrlKey && e.code === "KeyS") {
                               console.log("CTRL + S");
@@ -728,8 +721,7 @@ const Bisector = () => {
                             ) {
                               console.log("CTRL + SHIFT + I");
                               return false;
-                            } else
-                              console.log("keydown press detected" + e.code);
+                            }
                           });
                         },
                         menubar: false,
