@@ -1,4 +1,6 @@
+/* eslint-disable */
 import JoditEditor from "jodit-react";
+// import "../App.css";
 import React, { useRef, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import {
@@ -429,20 +431,48 @@ const Bisector = () => {
                     </b>
                     <br />
                     <br />
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Quisquam assumenda perspiciatis laborum recusandae! Quae
-                    incidunt inventore numquam totam fugiat hic, nemo voluptatem
-                    quod tempore alias autem, adipisci pariatur modi
-                    exercitationem. Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Nobis eum, ex esse facilis eveniet iure
-                    magnam dolores minima reiciendis fugiat quia! Iure rerum
-                    voluptas debitis, harum reprehenderit magni fugiat
-                    similique? Lorem ipsum dolor sit amet consectetur,
-                    adipisicing elit. Voluptas, eum? Facere laborum sint
-                    veritatis dolorem officia, itaque quae beatae ea, tempora,
-                    dolores possimus quia expedita temporibus doloribus quos eos
-                    nulla.
+                    {/* Question body */}
+                    <b>
+                      <em>Majority Element : </em>
+                    </b>
                     <br />
+                    <br />
+                    <p>
+                      Given an array nums of size n, return the majority
+                      element.
+                    </p>
+                    <p>
+                      The majority element is the element that appears more than
+                      ⌊n / 2⌋ times. You may assume that the majority element
+                      always exists in the array.
+                    </p>
+                    <p>
+                      <em>Example 1:</em>
+                      <pre>
+                        Input: nums = [3,2,3]
+                        <br />
+                        Output: 3
+                      </pre>
+                      <em>Example 2:</em>
+                      <pre>
+                        Input: nums = [2,2,1,1,1,2,2]
+                        <br />
+                        Output: 2
+                      </pre>
+                      <em>Constraints:</em>
+                      <pre>
+                        <ul>
+                          <li>n == nums.length</li>
+                          <li>
+                            1 &lt;= n &lt= 5 * 10<sup>4</sup>
+                          </li>
+                          <li>
+                            -10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup>
+                          </li>
+                        </ul>
+                      </pre>
+                    </p>
+                    {/* ---- */}
                   </p>
                 </div>
 
@@ -454,18 +484,43 @@ const Bisector = () => {
                     </b>
                     <br />
                     <br />
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Quisquam assumenda perspiciatis laborum recusandae! Quae
-                    incidunt inventore numquam totam fugiat hic, nemo voluptatem
-                    quod tempore. Lorem ipsum, dolor sit amet consectetur
-                    adipisicing elit. Temporibus obcaecati nihil rerum cumque
-                    harum veniam adipisci quisquam quasi iste dolorum quo
-                    deleniti labore laudantium ullam, reiciendis magnam iure
-                    sunt doloribus? Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Amet, harum neque reprehenderit nam
-                    accusamus aliquid architecto eligendi asperiores illo ea
-                    alias consequatur, cumque blanditiis necessitatibus ad
-                    reiciendis minima magni optio?
+                    {/* Question body */}
+                    <b>
+                      <em>Diagonal sum : </em>
+                    </b>
+                    <br />
+                    <br />
+                    <p>
+                      Given a square matrix of size n×n. Your task is to
+                      calculate the sum of its diagonals.
+                    </p>
+                    <p>
+                      You don't need to read or print anything. Your task is to
+                      write the function DiagonalSum() which takes the matrix as
+                      input parameter and returns the sum of its diagonals
+                    </p>
+                    <p>
+                      <em>Example 1:</em>
+                      <pre>
+                        Input: matrix = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
+                        <br />
+                        Output: 6
+                      </pre>
+                      <em>Example 2:</em>
+                      <pre>
+                        Input: nums = [[1,2], [3,4]]
+                        <br />
+                        Output: 10
+                      </pre>
+                      <em>Constraints:</em>
+                      <pre>
+                        <ul>
+                          <li>1 &lt;= n &lt;= 100</li>
+                          <li>1 &lt;= matrix elements &lt;= 10000</li>
+                        </ul>
+                      </pre>
+                    </p>
+                    {/* ---- */}
                   </p>
                 </div>
 
@@ -477,16 +532,96 @@ const Bisector = () => {
                     </b>
                     <br />
                     <br />
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Quisquam assumenda perspiciatis laborum recusandae! Quae
-                    incidunt inventore numquam totam fugiat hic, nemo voluptatem
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Consectetur animi dicta nostrum cumque ipsa voluptate natus
-                    a eligendi placeat vero dignissimos, illum minus rem at fuga
-                    fugit amet ea praesentium! Voluptas, eum? Facere laborum
-                    sint veritatis dolorem officia, itaque quae beatae ea,
-                    tempora, dolores possimus quia expedita temporibus doloribus
-                    quos eos nulla.
+                    {/* Question body */}
+                    <b>
+                      <em>
+                        Minimum Number of Flips to Make the Binary String
+                        Alternating :
+                      </em>
+                    </b>
+                    <br />
+                    <br />
+                    <p>
+                      You are given a binary string s. You are allowed to
+                      perform two types of operations on the string in any
+                      sequence:
+                      <ul>
+                        <li>
+                          Type-1: Remove the character at the start of the
+                          string s and append it to the end of the string.
+                        </li>
+                        <li>
+                          Type-2: Pick any character in s and flip its value,
+                          i.e., if its value is '0' it becomes '1' and
+                          vice-versa.
+                        </li>
+                      </ul>
+                    </p>
+                    <p>
+                      Return the minimum number of type-2 operations you need to
+                      perform such that s becomes alternating.
+                    </p>
+                    <p>
+                      The string is called alternating if no two adjacent
+                      characters are equal.
+                      <ul>
+                        <li>
+                          For example, the strings "010" and "1010" are
+                          alternating, while the string "0100" is not.
+                        </li>
+                      </ul>
+                    </p>
+                    <p>
+                      <em>Example 1:</em>
+                      <pre>
+                        Input: s = "111000" <br />
+                        Output: 2
+                      </pre>
+                      <code>
+                        Explanation: Use the first operation two times to make s
+                        = "100011". Then, use the second operation on the third
+                        and sixth elements to make s = "101010".
+                      </code>
+                      <br />
+                      <br />
+                      <em>Example 2:</em>
+                      <pre>
+                        Input: s = "010"
+                        <br />
+                        Output: 0
+                        <br />
+                      </pre>
+                      <code>
+                        Explanation: The string is already alternating.
+                      </code>
+                      <br />
+                      <br />
+                      <em>Example 3:</em>
+                      <pre>
+                        Input: s = "1110"
+                        <br />
+                        Output: 1
+                      </pre>
+                      <code>
+                        Explanation: Use the second operation on the second
+                        element to make s = "1010"
+                      </code>
+                      <br />
+                      <br />
+                      <em>Constraints:</em>
+                      <pre>
+                        <ul>
+                          <li>n == nums.length</li>
+                          <li>
+                            1 &lt;= n &lt= 5 * 10<sup>4</sup>
+                          </li>
+                          <li>
+                            -10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup>
+                          </li>
+                        </ul>
+                      </pre>
+                    </p>
+                    {/* ---- */}
                   </p>
                 </div>
               </Card>
@@ -533,6 +668,7 @@ const Bisector = () => {
                         browser_spellcheck: false,
                         height: 400,
                         width: 650,
+                        body_class: "editorTxtArea",
                         setup: (editor) => {
                           editor.on("keydown", (e) => {
                             if (e.code === "F12") {
@@ -764,10 +900,125 @@ const Bisector = () => {
       </Card>
 
       {/* Rule Book Window */}
-      <div className="notice text-center" id="notice">
-        <Button onClick={viewTest} color="primary" className="noticeButton">
-          I Understand, Take Assessment
-        </Button>
+      <div
+        className="notice p-5"
+        id="notice"
+        style={{
+          textAlign: "justify",
+          display: "block",
+          color: "#fff",
+          lineHeight: 1.8,
+          maxHeight: "100vh",
+          overflowY: "scroll",
+        }}
+      >
+        <h2 className="my-4  text-center">Assessment Guidelines</h2>
+        <p>
+          Welcome to Blind Coding assessment! We are committed to ensuring a
+          fair and secure assessment environment for all participants. To
+          maintain the integrity of the assessment and uphold academic ethics,
+          we have established a set of guidelines that you must adhere to during
+          the assessment process. These rules aim to promote honesty, prevent
+          cheating, and provide a level playing field for everyone involved.
+          Please take a moment to review these guidelines carefully before
+          proceeding with the assessment.
+        </p>
+        <ol>
+          <li>
+            Respect Code of Conduct: Treat this online assessment with utmost
+            integrity. Do not engage in any behavior that compromises the
+            integrity of the assessment or violates academic ethics.
+          </li>
+          <li>
+            Questions & Switching: There are total of 3 questions. You can
+            switch between the different questions during the assessment. Use
+            the question navigation buttons provided to switch between questions
+            at any time.
+          </li>
+          <li>
+            Time Limit: The entire assessment has a time limit of 39 minutes.
+            Please manage your time effectively to complete all the questions
+            within the allocated time.
+          </li>
+          <li>
+            Code Flashes: You have a total of three code flashes available
+            during the assessment, each with a different duration. The code
+            flashes will be visible for the following durations:
+            <ul>
+              <li>First Flash: 10 seconds</li>
+              <li>Second Flash: 7 seconds</li>
+              <li>Third Flash: 5 seconds</li>
+            </ul>
+            All the 3 solutions will be flashed simultaneously.
+          </li>
+          <li>
+            Key Restrictions: All shortcut keys, key compositions and browser
+            functionalities, such as opening the inspect window, viewing source
+            code window, copy-paste, selecting all etc, are disabled during the
+            assessment. Any attempt to access or use these shortcuts may result
+            in immediate termination of the assessment.
+          </li>
+          <li>
+            Tab Key: The "Tab" key is specifically disabled in the editor to
+            ensure fairness. Pressing the "Tab" key will not result in an
+            indentation, instead it will act as a cursor switcher to navigate
+            within the assessment window. You should use the "Space" key for
+            indentations.
+          </li>
+          <li>
+            Browser Restrictions: Avoid using browser extensions or add-ons that
+            may interfere with the assessment. Additionally, switching to other
+            tabs or windows during the assessment is not allowed and result in
+            abnormal submission and termination of the assessment.
+          </li>
+          <li>
+            No Refresh/Reload: Refrain from refreshing or reloading the
+            assessment page during the assessment, as it may result in loss of
+            progress.
+          </li>
+          <li>
+            No Retaking: Participants are not allowed to retake the assessment
+            once it is submitted, regardless of any technical issues
+            encountered.
+          </li>
+          <li>
+            Device Configuration: This is a PC based assessment can not be
+            accessed using any mobile device. Ensure that your device screen
+            dimension is greater than or equal to 600 x 380. The assessment is
+            optimized for screens with this resolution or higher to provide the
+            best user experience.
+          </li>
+          <li>
+            No External Assistance: During the assessment, Keep all electronic
+            devices not required for the assessment, such as mobile phones,
+            tablets, or smartwatches, away from your workspace. Also you are
+            strictly prohibited from seeking help from others, using external
+            resources, or communicating with anyone to maintain the assessment's
+            integrity.
+          </li>
+          <li>
+            Monitoring: The assessment may be monitored using proctoring tools
+            to ensure compliance with the rules and maintain a fair assessment
+            environment.
+          </li>
+          <li>
+            To successfully submit the assessment click on the "Submit
+            Assessment" button.
+          </li>
+        </ol>
+        <p>
+          By proceeding with the assessment, you agree to abide by these rules.
+          Your commitment to academic integrity and adherence to the assessment
+          guidelines will ensure a fair and secure assessment for all
+          participants. <br />
+          Thank you for your cooperation, and we wish you the best of luck in
+          the blind coding assessment!
+        </p>
+        <div className="text-center my-4">
+          <Button onClick={viewTest} color="primary" className="noticeButton">
+            I Understand, Take Assessment
+          </Button>
+        </div>
       </div>
 
       {/* Reveal Code Window */}
