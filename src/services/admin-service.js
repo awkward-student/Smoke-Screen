@@ -7,7 +7,7 @@ export const getAllSubmissions = () => {
 };
 
 export const getSubmissionByUser = (userId) => {
-    return Axios.get("v1/api/adm/auth/submission/user/"+userId).then((res) => {
-      return res.data;
-    });
-  };
+  return Axios.get("v1/api/adm/auth/submission/user/" + userId).then((res) => {
+    return res.data;
+  });
+};
