@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import Base from "../../components/Base";
 import "../../App.css";
@@ -13,6 +14,10 @@ import {
 import { toast } from "react-toastify";
 import { doLogout } from "../../auth/auth";
 import { useNavigate } from "react-router-dom";
+import {
+  getPermissions,
+  updatePermission,
+} from "../../services/permission-service";
 
 const AdminDashboard = () => {
   // Variable to store all solutions
@@ -28,14 +33,14 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
 
   // Current page variable
+  // eslint-disable-next-line
   const [currentPage, setCurrentPage] = useState(0);
 
   const changePage = (pageNumber = 0) => {
     if (pageNumber > solutions.pageNumber && solutions.lastPage) return;
-    if (pageNumber < solutions.pageNumber && solutions.pageNumber == 0) return;
+    if (pageNumber < solutions.pageNumber && solutions.pageNumber === 0) return;
     loadAllSubmissions(pageNumber, 1)
       .then((data) => {
-        console.log(data);
         setSolutions({
           content: [...data.content],
           pageNumber: data.pageNumber,
@@ -58,14 +63,94 @@ const AdminDashboard = () => {
     });
   };
 
+  // variables to handle visiblity permissions
+  const [loginColor, setLoginColor] = useState("");
+  const [loginText, setLoginText] = useState("");
+  const [signinColor, setSigninColor] = useState("");
+  const [signinText, setSigninText] = useState("");
+
   // Loading all submissions on load of the component
   useEffect(() => {
     changePage(0);
+    // eslint-disable-next-line
   }, []);
 
-  const loginOperation = () => {};
+  useEffect(() => {
+    setTimeout(() => {
+      if (JSON.parse(localStorage.getItem("status"))[0].status === 0) {
+        setLoginColor("success");
+        setLoginText("Enable Login");
+        setSigninColor("danger");
+        setSigninText("Disable Signup");
+      } else {
+        setLoginColor("danger");
+        setLoginText("Disable Login");
+        setSigninColor("success");
+        setSigninText("Enable Signup");
+      }
+    }, 500);
+  }, []);
 
-  const registerOperation = () => {};
+  // enable-disable login
+  const pageOperations = () => {
+    var lin = JSON.parse(localStorage.getItem("status"))[0].status;
+    if (lin === 0) {
+      // setting login true
+      updatePermission(1, {
+        status: 1,
+      }).then((data) => {});
+      // setting signup false
+      updatePermission(2, {
+        status: 0,
+      }).then((data) => {});
+    } else {
+      // setting login false
+      updatePermission(1, {
+        status: 0,
+      }).then((data) => {});
+      // setting signup true
+      updatePermission(2, {
+        status: 1,
+      }).then((data) => {});
+    }
+
+    // setting new data to the admin's browser local storage and reloading admin's dashboard
+    getPermissions().then((data) => {
+      console.log(data[0]); // Login
+      console.log(data[1]); // Signup
+      setStatus({
+        LOGIN: data[0].status,
+        SIGNUP: data[1].status,
+      });
+      localStorage.removeItem("status");
+      localStorage.setItem("status", JSON.stringify(data));
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+      toast.success("Permissions updated successfully");
+      toast.info("Reload required to update preferences");
+      toast.warn("Reloading...");
+    });
+  };
+
+  // eslint-disable-next-line
+  const [status, setStatus] = useState({
+    LOGIN: "",
+    SIGNUP: "",
+  });
+
+  // useEffect(() => {
+  //   getPermissions().then((data) => {
+  //     console.log(data[0]); // Login
+  //     console.log(data[1]); // Signup
+  //     setStatus({
+  //       LOGIN: data[0].status,
+  //       SIGNUP: data[1].status,
+  //     });
+  //     localStorage.removeItem("status");
+  //     localStorage.setItem("status", JSON.stringify(data));
+  //   });
+  // }, []);
 
   // Main Page Body ----------------------------------------------
 
@@ -124,8 +209,21 @@ const AdminDashboard = () => {
               Logout
             </Button>
             <span>
-              <Button onClick={loginOperation} id="loginOps"></Button>
-              <Button onClick={registerOperation} id="registerOps"></Button>
+              <Button
+                className="mx-3"
+                color={loginColor}
+                onClick={pageOperations}
+                id="loginOps"
+              >
+                {loginText}
+              </Button>
+              <Button
+                color={signinColor}
+                onClick={pageOperations}
+                id="registerOps"
+              >
+                {signinText}
+              </Button>
             </span>
           </div>
         </Container>
