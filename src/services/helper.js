@@ -8,15 +8,16 @@ export const Axios = axios.create({
 });
 
 export const PRIVATE_AXIOS = axios.create({
-    baseURL:BASE_URL,
-})
+  baseURL: BASE_URL,
+});
 
-PRIVATE_AXIOS.interceptors.request.use((config) => {
+PRIVATE_AXIOS.interceptors.request.use(
+  (config) => {
     const token = getToken();
-    if(token){
-        config.headers.Authorization='Bearer '+token;
-        console.log(config.headers.Authorization);
-        console.log(config);
+    if (token) {
+      config.headers.Authorization = "Bearer " + token;
     }
     return config;
-}, (error) => Promise.reject(error));
+  },
+  (error) => Promise.reject(error)
+);
