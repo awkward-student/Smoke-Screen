@@ -14,15 +14,23 @@ import { toast } from "react-toastify";
 import { LoginUser } from "../services/user-service";
 import { doLogin, getCurrentUserProfile } from "../auth/auth";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Login = () => {
-//   useEffect(() => {
-//     if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-//       toast.warning("Can not login twice!");
-//     }
-//   }, []);
-
   const navigate = useNavigate();
+
+  //   useEffect(() => {
+  //     if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+  //       toast.warning("Can not login twice!");
+  //     }
+  //   }, []);
+
+  useEffect(() => {
+    // console.log(JSON.parse(localStorage.getItem("status"))[0].status);
+    if (JSON.parse(localStorage.getItem("status"))[0].status === 0) {
+      navigate("/register");
+    }
+  }, [navigate]);
 
   const [credentials, setCredentials] = useState({
     username: "",
@@ -138,7 +146,10 @@ const Login = () => {
           </CardBody>
 
           <CardFooter style={{ minWidth: "25vw" }}>
-            <span style={{color:"red", fontWeight:"200", fontSize:"13px"}}> * You can not login twice if taken assesment already * </span>
+            <span style={{ color: "red", fontWeight: "200", fontSize: "13px" }}>
+              {" "}
+              * You can not login twice if taken assesment already *{" "}
+            </span>
           </CardFooter>
         </Card>
       </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { NavLink as ReactLink, useNavigate } from "react-router-dom";
+import { NavLink as ReactLink } from "react-router-dom";
 import {
   Collapse,
   Navbar,
@@ -10,7 +10,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Button,
 } from "reactstrap";
 import {
   doLogout,
@@ -20,24 +19,26 @@ import {
 } from "../auth/auth";
 import { toast } from "react-toastify";
 
-
 const CustomNavbar = () => {
-
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState(undefined);
+  const [stats, setStats] = useState(false);
+  // eslint-disable-next-line
   const [userProfile, setUserProfile] = useState(false);
 
   useEffect(() => {
     setLogin(isLoggedIn());
     setUser(getCurrentUser());
-    setUserProfile(getCurrentUserProfile() == "ROLE_ADMIN");
-  }, [login]);
+    setUserProfile(getCurrentUserProfile() === "ROLE_ADMIN");
+    setStats(localStorage.getItem("status") != null);
+  }, [login, stats]);
 
+  // eslint-disable-next-line
   const performLogout = () => {
-    doLogout(()=>{
-      toast.info("Logged out successfully.")
-    })
-  }
+    doLogout(() => {
+      toast.info("Logged out successfully.");
+    });
+  };
 
   return (
     <div>
@@ -51,6 +52,7 @@ const CustomNavbar = () => {
         <NavbarBrand href="/">
           <img
             className="md"
+            alt="logo"
             src={require("../media/nitt-logo.png")}
             style={{
               height: 36,
@@ -71,19 +73,32 @@ const CustomNavbar = () => {
                 <NavItem>
                   <NavLink>{user.email}</NavLink>
                 </NavItem>
-                
               </>
             )}
-            
+
             {!login && (
               <>
                 <NavItem>
-                  <NavLink tag={ReactLink} to="/login">
+                  <NavLink
+                    tag={ReactLink}
+                    to="/login"
+                    disabled={
+                      stats &&
+                      JSON.parse(localStorage.getItem("status"))[0].status === 0
+                    }
+                  >
                     Login
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={ReactLink} to="/register">
+                  <NavLink
+                    tag={ReactLink}
+                    to="/register"
+                    disabled={
+                      stats &&
+                      JSON.parse(localStorage.getItem("status"))[1].status === 0
+                    }
+                  >
                     Register
                   </NavLink>
                 </NavItem>

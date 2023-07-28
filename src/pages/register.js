@@ -14,8 +14,18 @@ import {
 import { RegisterUser } from "../services/user-service";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Register = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // console.log(JSON.parse(localStorage.getItem("status"))[0].status);
+    if (JSON.parse(localStorage.getItem("status"))[1].status === 0) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -28,8 +38,6 @@ const Register = () => {
   const handleChange = (e, prop) => {
     setUserData({ ...userData, [prop]: e.target.value });
   };
-
-  const navigate = useNavigate();
 
   //submit form
   const submitForm = (e) => {
