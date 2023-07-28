@@ -751,6 +751,7 @@ const Bisector = () => {
                       init={{
                         browser_spellcheck: false,
                         height: 400,
+                        body_class: "editorTxtArea",
                         width: 650,
                         setup: (editor) => {
                           editor.on("keydown", (e) => {
@@ -835,6 +836,7 @@ const Bisector = () => {
                         browser_spellcheck: false,
                         height: 400,
                         width: 650,
+                        body_class: "editorTxtArea",
                         setup: (editor) => {
                           editor.on("keydown", (e) => {
                             if (e.code === "F12") {
