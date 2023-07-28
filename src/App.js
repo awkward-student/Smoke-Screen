@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import "./App.css";
 import AdminRouteHandler from "./components/AdminRouteHandler";
 import UserRouteHandller from "./components/UserRouteHandller";

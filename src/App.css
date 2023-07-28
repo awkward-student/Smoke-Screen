@@ -206,20 +206,14 @@ body {
   justify-items: center;
 }
 
-/* .editorTxtArea {
-  min-width: 100%;
-  min-height: 41vh;
-  max-height: 400px;
-  max-width: 650px;
-  align-items: center;
-  align-content: center;
-  /* display: flex; */
-/* padding-left: 2px;
-  box-shadow: 5px 10px 18px #8888888f;
-  justify-content: center;
-  justify-items: center;
-} */
-*/ .formCard {
+.editorTxtArea {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.formCard {
   align-self: center;
   align-items: center;
   align-content: center;
