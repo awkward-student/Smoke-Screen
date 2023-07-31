@@ -1,4 +1,5 @@
 import React from "react";
+import "./styles/navbarstyle.css";
 import { useEffect } from "react";
 import { useState } from "react";
 import { NavLink as ReactLink } from "react-router-dom";
@@ -42,27 +43,19 @@ const CustomNavbar = () => {
 
   return (
     <div>
-      <Navbar
-        color="dark"
-        dark
-        expand="md"
-        fixed="top"
-        className="px-0 py-2 mb-4"
-      >
-        <NavbarBrand href="/">
+      <Navbar color="dark" dark expand="md" fixed="top" className="header">
+        <NavbarBrand className="header-brand-logo-container">
           <img
-            className="md"
-            alt="logo"
-            src={require("../media/nitt-logo.png")}
-            style={{
-              height: 36,
-              width: 36,
-              marginRight: 10,
-            }}
+            className="header-logo"
+            alt="blindcode-logo"
+            src={require("../media/faviconz.ico.png")}
           />
-          <span className="navHead">
-            National Institute of Technology, Tiruchirappalli
-          </span>
+          <img
+            className="header-logo"
+            id="header-logo-txt"
+            alt="text-logo"
+            src={require("../media/blindcode-logo-txt.png")}
+          />
         </NavbarBrand>
         <NavbarToggler />
         <Collapse navbar>
@@ -87,7 +80,7 @@ const CustomNavbar = () => {
                       JSON.parse(localStorage.getItem("status"))[0].status === 0
                     }
                   >
-                    Login
+                    <span className="navlink-text">LOGIN</span>
                   </NavLink>
                 </NavItem>
                 <NavItem>
@@ -99,7 +92,7 @@ const CustomNavbar = () => {
                       JSON.parse(localStorage.getItem("status"))[1].status === 0
                     }
                   >
-                    Register
+                    <span className="navlink-text">REGISTER</span>
                   </NavLink>
                 </NavItem>
               </>
