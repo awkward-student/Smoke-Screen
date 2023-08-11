@@ -1,3 +1,4 @@
+// release v1.0 commit
 import React from "react";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { getCurrentUserProfile, isLoggedIn } from "../auth/auth";

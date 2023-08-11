@@ -1,3 +1,4 @@
+// release v1.0 commit
 import CustomFooter from "./CustomFooter";
 import CustomNavbar from "./CustomNavbar";
 import "./styles/basestyle.css";

@@ -1,3 +1,4 @@
+// release v1.0 commit
 import React from "react";
 import "./styles/navbarstyle.css";
 import { useEffect } from "react";

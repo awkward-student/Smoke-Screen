@@ -1,3 +1,4 @@
+// release v1.0 commit
 import React from "react";
 import "./homestyle.css";
 import CustomNavbar from "../components/CustomNavbar";

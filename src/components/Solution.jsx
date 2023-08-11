@@ -1,3 +1,4 @@
+// release v1.0 commit
 import React from "react";
 import JoditEditor from "jodit-react";
 import { useRef } from "react";

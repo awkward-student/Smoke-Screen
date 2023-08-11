@@ -1,3 +1,4 @@
+// release v1.0 commit
 import React, { useRef, useEffect, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Button } from "reactstrap";

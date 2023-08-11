@@ -1,3 +1,4 @@
+// release v1.0 commit
 /* eslint-disable */
 import JoditEditor from "jodit-react";
 // import "../App.css";

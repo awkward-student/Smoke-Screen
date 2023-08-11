@@ -18,25 +18,37 @@ This project is designed for an event at National Institute of Technology, Trich
 ## Table of Contents
 
 - [Installation](#installation)
-- [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
 
 ## Installation
 
-Provide instructions on how to install and set up your project. Include any prerequisites, dependencies, or environment setup required.
+Get started with Blind Code Challenge in a few simple steps:
+
+1. Navigate to your project directory
+2. Clone this repository: git clone https://github.com/awkward-student/Smoke-Screen.git
+3. Install dependencies: npm install
+   - React Strap
+   - React Router Dom
+   - React Toastify
+   - Axios
+   - Jodit https://www.npmjs.com/package/jodit-react
+   - TinyMCE https://www.tiny.cloud/
+4. Setup backend url in src/services/helper.js
+5. Run application: npm start
 
 ```bash
 # Example installation steps
-git clone https://github.com/yourusername/yourproject.git
-cd yourproject
-npm install
+# Move into your project directory
+cd <project-name>
+# Clone repo from github
+git clone https://github.com/awkward-student/Smoke-Screen.git
+# Install needed deps using:
+npm install ...
+# Launch the application using:
+npm start
 ```
-
-## Usage
-
-Explain how users can use your project. Provide code examples, screenshots, or even a short demo video to showcase its functionality.
 
 ## Contributing
 
@@ -45,9 +57,9 @@ Explain how others can contribute to your project. This could include guidelines
 # Contributing Guidelines
 
 1. Fork the repository.
-2. Create a new branch for your feature/bugfix.
-3. Make your changes and commit them.
-4. Push your changes to your fork.
+2. Create a new branch for your feature/bugfix: `git checkout -b feature-new-feature`
+3. Make your changes and commit them: `git commit -m "Add new feature"`
+4. Push your changes to your fork: `git push origin feature-new-feature`
 5. Open a pull request.
 
 ## License
@@ -56,4 +68,8 @@ This project is licensed under the MIT License.
 
 ## Contact
 
-Provide a way for users and contributors to get in touch with you. This could be an email address, a link to your GitHub profile, or a link to a community forum.
+Experience the thrill of coding blindly:
+
+GitHub: /awkward-student
+
+### "Unveil Your Intuition: Embrace the Coding Challenge of the Unseen"
