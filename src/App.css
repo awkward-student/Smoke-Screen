@@ -1,3 +1,4 @@
+/* // release v1.0 commit */
 body {
   cursor: default;
 }
@@ -58,10 +59,6 @@ body {
 
 .hide {
   display: none;
-}
-
-.joditStyle {
-  background-color: "beige";
 }
 
 .solution {
@@ -296,8 +293,4 @@ body {
 .revealHidden {
   display: none;
   z-index: -99;
-}
-
-.inf {
-  display: flex;
 }

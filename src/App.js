@@ -1,3 +1,5 @@
+// release v1.0 commit
+
 import "./App.css";
 import AdminRouteHandler from "./components/AdminRouteHandler";
 import UserRouteHandller from "./components/UserRouteHandller";
@@ -35,7 +37,8 @@ function App() {
       <ToastContainer position="bottom-center" />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Register />} />
+        <Route path="/admin/auth/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/user" element={<UserRouteHandller />}>
           <Route path="dashboard" element={<Dashboard />} />

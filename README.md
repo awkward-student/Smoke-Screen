@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# SMOKE SCREEN - A BLIND CODING PLATFORM
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Project Logo](/src/media/faviconz.ico.png)
 
-## Available Scripts
+### Alias: BlindCode Blitz
 
-In the project directory, you can run:
+Named at the event at NIT, Trichy!
 
-### `npm start`
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Release](https://img.shields.io/badge/release-v1.0-green.svg)](https://github.com/yourusername/yourproject/releases/tag/v1.0)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Description
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Smoke Screen, an extraordinary coding platform that takes you out of your coding comfort zone. Step into a world where your coding instincts are put to the ultimate test – you'll write code without seeing it. Engage in a unique challenge that sharpens your problem-solving skills and encourages creative thinking.
 
-### `npm test`
+This project is designed for an event at National Institute of Technology, Trichy, and to provide a fresh perspective on coding. By removing the visual aspect and relying solely on your code logic, Smoke Screen helps you explore the depths of your coding expertise and adaptability.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Table of Contents
 
-### `npm run build`
+- [Installation](#installation)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Get started with Blind Code Challenge in a few simple steps:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Navigate to your project directory
+2. Clone this repository: git clone https://github.com/awkward-student/Smoke-Screen.git
+3. Install dependencies: npm install
+   - React Strap
+   - React Router Dom
+   - React Toastify
+   - Axios
+   - Jodit https://www.npmjs.com/package/jodit-react
+   - TinyMCE https://www.tiny.cloud/
+4. Setup backend url in src/services/helper.js
+5. Run application: npm start
 
-### `npm run eject`
+```bash
+# Example installation steps
+# Move into your project directory
+cd <project-name>
+# Clone repo from github
+git clone https://github.com/awkward-student/Smoke-Screen.git
+# Install needed deps using:
+npm install ...
+# Launch the application using:
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Contributing
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Fork the repository.
+2. Create a new branch for your feature/bugfix: `git checkout -b feature-new-feature`
+3. Make your changes and commit them: `git commit -m "Add new feature"`
+4. Push your changes to your fork: `git push origin feature-new-feature`
+5. Open a pull request.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## License
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+This project is licensed under the MIT License.
 
-## Learn More
+## Contact
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Experience the thrill of coding blindly:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+GitHub: /awkward-student
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### "Unveil Your Intuition: Embrace the Coding Challenge of the Unseen"

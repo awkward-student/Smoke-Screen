@@ -1,3 +1,4 @@
+// release v1.0 commit
 /* eslint-disable */
 import JoditEditor from "jodit-react";
 // import "../App.css";
@@ -101,6 +102,7 @@ const Bisector = () => {
     showCharsCounter: false,
     showWordsCounter: false,
     showXPathInStatusbar: false,
+    width: 400,
     height: 450,
     minHeight: 450,
     maxHeight: 450,
@@ -306,9 +308,18 @@ const Bisector = () => {
       secs = Math.floor((distance % (1000 * 60)) / 1000);
       try {
         document.getElementById("timer").innerHTML = mins + " : " + secs;
-        let m = 38 - mins;
-        let s = 60 - secs;
-        let t = m + ":" + s;
+        var m = 38 - mins;
+        var s = 60 - secs;
+        var t;
+        if (m < 10 && s < 10) {
+          t = "0" + m + ":" + "0" + s;
+        } else if (m < 10) {
+          t = "0" + m + ":" + s;
+        } else if (s < 10) {
+          t = m + ":" + "0" + s;
+        } else {
+          t = m + ":" + s;
+        }
         setTime(t);
       } catch (e) {
         window.location.reload(true);
@@ -336,12 +347,12 @@ const Bisector = () => {
       <Navbar
         dark
         expand="md"
-        className="mt-3"
+        className=""
         style={{
           border: "2px transparent solid",
           backgroundColor: "#1a0080",
           minHeight: "50px",
-          top: "7vh",
+          top: "12vh",
           zIndex: "1",
           color: "#fff",
         }}
@@ -359,7 +370,10 @@ const Bisector = () => {
         </Button>
       </Navbar>
 
-      <Card className="codeBookCard" style={{ border: "none" }}>
+      <Card
+        className="codeBookCard"
+        style={{ border: "none", marginTop: "7vh" }}
+      >
         <CardBody className="formCard mt-0 mb-4">
           {/* The form that contains all the solution screens and language selectors */}
           <form className="formX" onSubmit={submitForm}>
@@ -667,7 +681,9 @@ const Bisector = () => {
                       init={{
                         browser_spellcheck: false,
                         height: 400,
-                        width: 650,
+                        width: 620,
+                        min_width: 500,
+                        max_width: 650,
                         body_class: "editorTxtArea",
                         setup: (editor) => {
                           editor.on("keydown", (e) => {
@@ -914,8 +930,10 @@ const Bisector = () => {
           overflowY: "scroll",
         }}
       >
-        <h2 className="my-4  text-center">Assessment Guidelines</h2>
-        <p>
+        <h2 className="my-5 text-center" style={{ paddingTop: "1vh" }}>
+          Assessment Guidelines
+        </h2>
+        <p style={{ color: "grey" }}>
           Welcome to Blind Coding assessment! We are committed to ensuring a
           fair and secure assessment environment for all participants. To
           maintain the integrity of the assessment and uphold academic ethics,
@@ -1008,7 +1026,7 @@ const Bisector = () => {
             Assessment" button.
           </li>
         </ol>
-        <p>
+        <p style={{ color: "grey" }}>
           By proceeding with the assessment, you agree to abide by these rules.
           Your commitment to academic integrity and adherence to the assessment
           guidelines will ensure a fair and secure assessment for all

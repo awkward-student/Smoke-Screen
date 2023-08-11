@@ -1,37 +1,34 @@
+// release v1.0 commit
 import React from "react";
 import "./homestyle.css";
+import CustomNavbar from "../components/CustomNavbar";
+import CustomFooter from "../components/CustomFooter";
 
 const Home = () => {
   return (
     <div>
-      <nav
-        className="text-center"
-        style={{
-          top: "0",
-          position: "sticky",
-          background: "#fff",
-          padding: "5px",
-          borderBottom: "1px solid black",
-        }}
-      >
-        National Institute of Technology, Tiruchirappalli
-      </nav>
+      <CustomNavbar />
       <header>
         <div className="header-content">
-          <h1>Blindcode Blitz</h1>
-          <h2>A Coding Adventure Awaits!</h2>
-          <p className="intro  highlight-section">
+          <p className="hx">
+            BL<span className="txt-i">1</span>NDC
+            <span className="txt-i">0</span>De
+            <span className="blitz-txt">blitz</span>
+          </p>
+          <p className="hxs">A Coding Adventure Awaits!</p>
+          <p class="intro">
             Are you ready for the ultimate coding challenge? The Blindcode Blitz
             is a one-of-a-kind event where participants put their coding skills
             to the test, solving problems without seeing the code they write.
             Register now and embrace the thrill of coding blindfolded!
           </p>
           <a className="button" href="/register">
-            Register Now
+            REGISTER
           </a>
         </div>
       </header>
-      <div className="container">
+
+      <div className="containerz">
         <div className="about-section">
           <h2>About the Competition</h2>
           <p>
@@ -73,12 +70,8 @@ const Home = () => {
           </p>
         </div>
       </div>
-      <footer>
-        <p>
-          © 2023 - ACM @ National Institute of Technology, Trichy. All rights
-          reserved.
-        </p>
-      </footer>
+
+      <CustomFooter />
     </div>
   );
 };

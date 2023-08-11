@@ -48,3 +48,5 @@ export const getToken = () => {
     return null;
   }
 };
+
+// release v1.0 commit
