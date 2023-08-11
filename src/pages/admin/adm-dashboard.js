@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
+import "../styles/adm-dash.css";
 import Base from "../../components/Base";
-import "../../App.css";
 import { loadAllSubmissions } from "../../services/solution-service";
 import Solution from "../../components/Solution";
 import {
@@ -156,33 +156,27 @@ const AdminDashboard = () => {
 
   return (
     <Base>
-      <Container
-        style={{
-          minHeight: "80vh",
-          minWidth: "90vw",
-          display: "grid",
-          alignSelf: "center",
-          alignContent: "center",
-          alignItems: "center",
-          justifyContent: "center",
-          justifyItems: "center",
-          marginTop: "12px",
-        }}
-      >
+      <Container className="adm-container">
         {/* <h4>Total number of submissions : {solutions?.totalElements}</h4> */}
         {solutions?.content.map((solution) => (
           <Solution key={solution.id} solution={solution} />
         ))}
         {/* <Solution solution={solutions?.content}/> */}
-        <Container className="mt-3 text-center">
-          <Pagination>
+        <Container className="ops mt-3 text-center">
+          <Pagination style={{ display: "inline-flex" }}>
+            <PaginationItem
+              onClick={() => changePage(0)}
+              disabled={solutions.pageNumber === 0}
+            >
+              <PaginationLink first></PaginationLink>
+            </PaginationItem>
             <PaginationItem
               onClick={() => changePage(solutions.pageNumber - 1)}
               disabled={solutions.pageNumber === 0}
             >
               <PaginationLink previous></PaginationLink>
             </PaginationItem>
-            {[...Array(solutions.totalPages)].map((item, index) => (
+            {/* {[...Array(solutions.totalPages)].map((item, index) => (
               <PaginationItem
                 onClick={() => changePage(index)}
                 active={index === solutions.pageNumber}
@@ -190,7 +184,26 @@ const AdminDashboard = () => {
               >
                 <PaginationLink>{index + 1}</PaginationLink>
               </PaginationItem>
-            ))}
+            ))} */}
+            <PaginationItem
+              disabled={!solutions.pageNumber}
+              onClick={() => changePage(solutions.pageNumber - 1)}
+              // disabled={solutions.pageNumber === 0}
+            >
+              <PaginationLink>{solutions.pageNumber}</PaginationLink>
+            </PaginationItem>
+
+            <PaginationItem active>
+              <PaginationLink>{solutions.pageNumber + 1}</PaginationLink>
+            </PaginationItem>
+
+            <PaginationItem
+              disabled={solutions.totalElements == solutions.pageNumber + 1}
+              onClick={() => changePage(solutions.pageNumber + 1)}
+            >
+              <PaginationLink>{solutions.pageNumber + 2}</PaginationLink>
+            </PaginationItem>
+
             <PaginationItem
               onClick={() => changePage(solutions.pageNumber + 1)}
               disabled={solutions.lastPage}
@@ -203,29 +216,13 @@ const AdminDashboard = () => {
             >
               <PaginationLink last></PaginationLink>
             </PaginationItem>
-          </Pagination>
-          <div className="admOptions">
-            <Button color="primary" onClick={performLogout}>
+            <Button className="mx-3" color="secondary" onClick={performLogout}>
               Logout
             </Button>
-            <span>
-              <Button
-                className="mx-3"
-                color={loginColor}
-                onClick={pageOperations}
-                id="loginOps"
-              >
-                {loginText}
-              </Button>
-              <Button
-                color={signinColor}
-                onClick={pageOperations}
-                id="registerOps"
-              >
-                {signinText}
-              </Button>
-            </span>
-          </div>
+            <Button color={loginColor} onClick={pageOperations} id="loginOps">
+              {loginText}
+            </Button>
+          </Pagination>
         </Container>
       </Container>
     </Base>
