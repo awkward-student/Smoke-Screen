@@ -52,10 +52,6 @@ npm start
 
 ## Contributing
 
-Explain how others can contribute to your project. This could include guidelines for opening issues, suggesting enhancements, or submitting pull requests.
-
-# Contributing Guidelines
-
 1. Fork the repository.
 2. Create a new branch for your feature/bugfix: `git checkout -b feature-new-feature`
 3. Make your changes and commit them: `git commit -m "Add new feature"`
