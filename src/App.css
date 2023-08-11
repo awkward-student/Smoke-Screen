@@ -60,10 +60,6 @@ body {
   display: none;
 }
 
-.joditStyle {
-  background-color: "beige";
-}
-
 .solution {
   user-select: none;
   -webkit-user-select: none;
@@ -296,8 +292,4 @@ body {
 .revealHidden {
   display: none;
   z-index: -99;
-}
-
-.inf {
-  display: flex;
 }
